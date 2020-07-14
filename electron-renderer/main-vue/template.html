@@ -1,0 +1,78 @@
+<div>
+	<table>
+		<tr style="font-weight: 800;">
+			<td>externalPort</td>
+			<td>internalPort</td>
+			<td>internalHost</td>
+			<td>targetHost</td>
+			<td>targetSshPort</td>
+			<td>user</td>
+			<td></td>
+		</tr>
+		<tr v-for="(redirection, index) in redirections">
+			<td>
+				<input
+					type="number"
+					:disabled="redirection.isStarted == true"
+					:value="redirection.externalPort"
+					@change="setRedirection('externalPort', index, $event.target.value)"
+				/>
+			</td>
+			<td>
+				<input
+					type="number"
+					:disabled="redirection.isStarted == true"
+					:value="redirection.internalPort"
+					@change="setRedirection('internalPort', index, $event.target.value)"
+				/>
+			</td>
+			<td>
+				<input
+					type="text"
+					:disabled="redirection.isStarted == true"
+					:value="redirection.internalHost"
+					@change="setRedirection('internalHost', index, $event.target.value)"
+				/>
+			</td>
+			<td>
+				<input
+					type="text"
+					:disabled="redirection.isStarted == true"
+					:value="redirection.targetHost"
+					@change="setRedirection('targetHost', index, $event.target.value)"
+				/>
+			</td>
+			<td>
+				<input
+					type="number"
+					:disabled="redirection.isStarted == true"
+					:value="redirection.targetSshPort"
+					@change="setRedirection('targetSshPort', index, $event.target.value)"
+				/>
+			</td>
+			<td>
+				<input
+					type="text"
+					:disabled="redirection.isStarted == true"
+					:value="redirection.user"
+					@change="setRedirection('user', index, $event.target.value)"
+				/>
+			</td>
+			<td>
+				<button v-if="redirection.isStarted" v-on:click="stopRedirection(index)">disable</button>
+				<button v-else :disabled="duplicatedExternalPorts" v-on:click="startRedirection(index)">enable</button>
+			</td>
+		</tr>
+	</table>
+
+	<button v-on:click="addRedirection">add</button>
+	<h3>configuration editor</h3>
+
+	<div style="display: flex; flex-direction: row;">
+		<pre class="editorCurrentConfig">{{ JSON.stringify(configuration, null, 4) }}</pre>
+		<div class="editorInputContainer">
+			<textarea v-model="configurationEditor"> </textarea>
+			<button v-on:click="applyConfiguration">apply new configuration</button>
+		</div>
+	</div>
+</div>

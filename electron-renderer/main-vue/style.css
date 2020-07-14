@@ -1,0 +1,28 @@
+table {
+	width: 100%;
+}
+
+td {
+	padding-left: 3mm;
+	padding-right: 3mm;
+}
+
+input {
+	width: 100%;
+}
+
+.editorInputContainer {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	margin: 5mm;
+}
+
+.editorInputContainer textarea {
+	min-height: 3cm;
+}
+
+.editorCurrentConfig {
+	max-height: 4cm;
+	overflow-y: scroll;
+}
