@@ -24,6 +24,10 @@ module.exports = {
 				test: /\.ts$/,
 				use: ["ts-loader"],
 			},
+			{
+				test: /\.(woff|woff2)$/i,
+				use: ["file-loader"],
+			},
 		],
 	},
 	target: "electron-renderer",

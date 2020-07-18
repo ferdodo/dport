@@ -1,78 +1,102 @@
-<div>
-	<table>
-		<tr style="font-weight: 800;">
-			<td>externalPort</td>
-			<td>internalPort</td>
-			<td>internalHost</td>
-			<td>targetHost</td>
-			<td>targetSshPort</td>
-			<td>user</td>
-			<td></td>
-		</tr>
-		<tr v-for="(redirection, index) in redirections">
-			<td>
-				<input
-					type="number"
-					:disabled="redirection.isStarted == true"
-					:value="redirection.externalPort"
-					@change="setRedirection('externalPort', index, $event.target.value)"
-				/>
-			</td>
-			<td>
-				<input
-					type="number"
-					:disabled="redirection.isStarted == true"
-					:value="redirection.internalPort"
-					@change="setRedirection('internalPort', index, $event.target.value)"
-				/>
-			</td>
-			<td>
-				<input
-					type="text"
-					:disabled="redirection.isStarted == true"
-					:value="redirection.internalHost"
-					@change="setRedirection('internalHost', index, $event.target.value)"
-				/>
-			</td>
-			<td>
-				<input
-					type="text"
-					:disabled="redirection.isStarted == true"
-					:value="redirection.targetHost"
-					@change="setRedirection('targetHost', index, $event.target.value)"
-				/>
-			</td>
-			<td>
-				<input
-					type="number"
-					:disabled="redirection.isStarted == true"
-					:value="redirection.targetSshPort"
-					@change="setRedirection('targetSshPort', index, $event.target.value)"
-				/>
-			</td>
-			<td>
-				<input
-					type="text"
-					:disabled="redirection.isStarted == true"
-					:value="redirection.user"
-					@change="setRedirection('user', index, $event.target.value)"
-				/>
-			</td>
-			<td>
-				<button v-if="redirection.isStarted" v-on:click="stopRedirection(index)">disable</button>
-				<button v-else :disabled="duplicatedExternalPorts" v-on:click="startRedirection(index)">enable</button>
-			</td>
-		</tr>
-	</table>
+<div class="window" style="height: calc(100% - 6px); display: flex; flex-direction: column;">
+	<div class="title-bar">
+		<div class="title-bar-text drag-title">dport</div>
+		<div class="title-bar-controls">
+			<button aria-label="Minimize" v-on:click="minimize"></button>
+			<button aria-label="Close" v-on:click="close"></button>
+		</div>
+	</div>
+	<div style="flex-grow: 1; overflow-y: auto;">
+		<table>
+			<tr>
+				<td colspan="7">
+					<p><b>SSH tunneling</b></p>
+					<p>
+						Enabled lines will execute the following command: &emsp;
+						<code class="sample-command"
+							>ssh &#60;local_port&#62;:&#60;remote_address&#62;:&#60;remote_port&#62; &#60;user&#62;@&#60;server&#62; -p
+							&#60;server_ssh_port&#62;</code
+						>
+					</p>
+				</td>
+			</tr>
+			<tr style="font-weight: 800;">
+				<td>local_port</td>
+				<td>remote_address</td>
+				<td>remote_port</td>
+				<td>user</td>
+				<td>server</td>
+				<td>server_ssh_port</td>
+				<td></td>
+			</tr>
+			<tr v-for="(redirection, index) in redirections">
+				<td>
+					<input
+						type="number"
+						:disabled="redirection.isStarted == true"
+						:value="redirection.externalPort"
+						@change="setRedirection('externalPort', index, $event.target.value)"
+					/>
+				</td>
+				<td>
+					<input
+						type="text"
+						:disabled="redirection.isStarted == true"
+						:value="redirection.internalHost"
+						@change="setRedirection('internalHost', index, $event.target.value)"
+					/>
+				</td>
+				<td>
+					<input
+						type="number"
+						:disabled="redirection.isStarted == true"
+						:value="redirection.internalPort"
+						@change="setRedirection('internalPort', index, $event.target.value)"
+					/>
+				</td>
+				<td>
+					<input
+						type="text"
+						:disabled="redirection.isStarted == true"
+						:value="redirection.user"
+						@change="setRedirection('user', index, $event.target.value)"
+					/>
+				</td>
+				<td>
+					<input
+						type="text"
+						:disabled="redirection.isStarted == true"
+						:value="redirection.targetHost"
+						@change="setRedirection('targetHost', index, $event.target.value)"
+					/>
+				</td>
+				<td>
+					<input
+						type="number"
+						:disabled="redirection.isStarted == true"
+						:value="redirection.targetSshPort"
+						@change="setRedirection('targetSshPort', index, $event.target.value)"
+					/>
+				</td>
+				<td>
+					<button v-if="redirection.isStarted" v-on:click="stopRedirection(index)">disable</button>
+					<button v-else :disabled="duplicatedExternalPorts" v-on:click="startRedirection(index)">enable</button>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="6"></td>
+				<td><button v-on:click="addRedirection">add</button></td>
+			</tr>
+		</table>
 
-	<button v-on:click="addRedirection">add</button>
-	<h3>configuration editor</h3>
-
-	<div style="display: flex; flex-direction: row;">
-		<pre class="editorCurrentConfig">{{ JSON.stringify(configuration, null, 4) }}</pre>
 		<div class="editorInputContainer">
+			<p>Edit configuration:</p>
 			<textarea v-model="configurationEditor"> </textarea>
-			<button v-on:click="applyConfiguration">apply new configuration</button>
+
+			<div style="display: flex; flex-direction: row; justify-content: space-between;">
+				<button v-on:click="copyConfigurationToClipBoard">Copy current configuration to clipboard</button>
+				<button v-on:click="applyConfiguration">Apply configuration</button>
+			</div>
 		</div>
 	</div>
 </div>

@@ -2,7 +2,7 @@ import template from "./template.html";
 import Redirection from "../lib/Redirection.ts";
 import Vue from "vue";
 import "./style.css";
-import { ipcRenderer } from "electron";
+import { ipcRenderer, clipboard, remote } from "electron";
 
 var div = document.createElement("div");
 div.id = "app";
@@ -24,7 +24,7 @@ new Vue({
 	el: "#app",
 	template,
 	data: () => ({
-		redirections: [new Redirection(ipcRenderer)],
+		redirections: [new Redirection(ipcRenderer), new Redirection(ipcRenderer).setValue("externalPort", 8081)],
 		configurationEditor: "",
 	}),
 	methods: {
@@ -61,6 +61,19 @@ new Vue({
 					.setValue("targetSshPort", redirectionJson.targetSshPort)
 					.setValue("user", redirectionJson.user);
 			});
+		},
+		copyConfigurationToClipBoard() {
+			const text = this.configurationEditor || JSON.stringify(this.configuration, null, 4);
+			clipboard.writeText(text);
+			this.configurationEditor = this.configurationEditor || text;
+		},
+		minimize() {
+			const win = remote.getCurrentWindow();
+			win.minimize();
+		},
+		close() {
+			const win = remote.getCurrentWindow();
+			win.close();
 		},
 	},
 	computed: {

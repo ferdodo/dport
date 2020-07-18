@@ -31,8 +31,9 @@ function appReady() {
 
 async function createWindow() {
 	var win = new BrowserWindow({
-		width: 900,
-		height: 520,
+		width: 740,
+		height: 405,
+		frame: false,
 		webPreferences: {
 			nodeIntegration: true,
 		},
@@ -52,10 +53,6 @@ async function handleStartRedirection(event, { externalPort, internalPort, inter
 }
 
 async function handleStopRedirection(event, { externalPort }) {
-	console.log({
-		externalPort,
-		redirectionCache,
-	});
 	if (!redirectionCache[externalPort]) throw new Error("Unknown external port !");
 	redirectionCache[externalPort].stop();
 }

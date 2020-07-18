@@ -1,6 +1,6 @@
 {
 	"name": "dport",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "GUI for SSH port forwarding.",
 	"main": "electron-main/main.js",
 	"scripts": {
@@ -11,7 +11,7 @@
 	"build": {
 		"linux": {
 			"target": "AppImage",
-			"artifactName": "${name}.appImage"
+			"artifactName": "${name}.AppImage"
 		}
 	},
 	"keywords": [],
@@ -21,6 +21,7 @@
 		"css-loader": "^3.6.0",
 		"electron": "^9.1.0",
 		"electron-builder": "^22.7.0",
+		"file-loader": "^6.0.0",
 		"html-webpack-plugin": "^4.3.0",
 		"raw-loader": "^4.0.1",
 		"style-loader": "^1.2.1",
@@ -31,6 +32,7 @@
 		"webpack-node-externals": "^2.5.0"
 	},
 	"dependencies": {
+		"98.css": "^0.1.16",
 		"vue": "^2.6.11"
 	}
 }

@@ -18,7 +18,7 @@ export default class Redirection {
 		externalPort = 8080,
 		internalPort = 8080,
 		internalHost = "localhost",
-		targetHost = "192.168.1.10",
+		targetHost = "192.168.1.1",
 		targetSshPort = "22",
 		user = "user",
 		state = State.Stopped

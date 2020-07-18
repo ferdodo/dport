@@ -1,3 +1,15 @@
+html {
+	height: 100%;
+}
+
+body {
+	background: #c0c0c0;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	overflow-y: hidden;
+}
+
 table {
 	width: 100%;
 }
@@ -5,6 +17,7 @@ table {
 td {
 	padding-left: 3mm;
 	padding-right: 3mm;
+	min-width: 2cm;
 }
 
 input {
@@ -19,10 +32,26 @@ input {
 }
 
 .editorInputContainer textarea {
-	min-height: 3cm;
+	min-height: 2.5cm;
+	resize: none;
+}
+
+.editorInputContainer button {
+	margin-top: 13px;
+	width: 49.5%;
 }
 
 .editorCurrentConfig {
 	max-height: 4cm;
 	overflow-y: scroll;
+}
+
+.drag-title {
+	-webkit-app-region: drag;
+	width: 100%;
+	line-height: 1.3em;
+}
+
+.sample-command {
+	white-space: nowrap;
 }
