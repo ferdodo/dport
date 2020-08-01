@@ -1,21 +1,19 @@
 {
 	"name": "dport",
-	"version": "0.1.1",
+	"version": "0.2.0",
 	"description": "GUI for SSH port forwarding.",
-	"main": "electron-main/main.js",
+	"main": "electron-main/dist/main.js",
 	"scripts": {
 		"build-1": "cd electron-main && webpack",
 		"build-0": "npm run build-1 && cd electron-renderer && webpack",
 		"build": "npm run build-0 && electron-builder"
 	},
-	"build": {
-		"linux": {
-			"target": "AppImage",
-			"artifactName": "${name}.AppImage"
-		}
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ferdodo/dport"
 	},
 	"keywords": [],
-	"author": "Thomas Riffard",
+	"author": "Thomas Riffard <example@example.org>",
 	"license": "MIT",
 	"devDependencies": {
 		"css-loader": "^3.6.0",
