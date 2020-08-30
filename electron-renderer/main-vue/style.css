@@ -15,9 +15,9 @@ table {
 }
 
 td {
-	padding-left: 3mm;
-	padding-right: 3mm;
-	min-width: 2cm;
+	padding-left: 0.5rem;
+	padding-right: 0.5rem;
+	min-width: 2.9rem;
 }
 
 input {
@@ -27,7 +27,7 @@ input {
 .drag-title {
 	-webkit-app-region: drag;
 	width: 100%;
-	line-height: 1.3em;
+	line-height: 0.9rem;
 }
 
 .sample-command {
