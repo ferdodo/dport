@@ -31,8 +31,8 @@ function appReady() {
 
 async function createWindow() {
 	var win = new BrowserWindow({
-		width: 740,
-		height: 405,
+		width: 730,
+		height: 260,
 		frame: false,
 		webPreferences: {
 			nodeIntegration: true,
