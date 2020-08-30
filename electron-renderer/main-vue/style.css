@@ -24,28 +24,6 @@ input {
 	width: 100%;
 }
 
-.editorInputContainer {
-	display: flex;
-	flex-direction: column;
-	flex-grow: 1;
-	margin: 5mm;
-}
-
-.editorInputContainer textarea {
-	min-height: 2.5cm;
-	resize: none;
-}
-
-.editorInputContainer button {
-	margin-top: 13px;
-	width: 49.5%;
-}
-
-.editorCurrentConfig {
-	max-height: 4cm;
-	overflow-y: scroll;
-}
-
 .drag-title {
 	-webkit-app-region: drag;
 	width: 100%;

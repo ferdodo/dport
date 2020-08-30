@@ -27,7 +27,7 @@
 				<td>user</td>
 				<td>server</td>
 				<td>server_ssh_port</td>
-				<td></td>
+				<td colspan="3"></td>
 			</tr>
 			<tr v-for="(redirection, index) in redirections">
 				<td>
@@ -76,21 +76,14 @@
 					<button v-if="redirection.isStarted" v-on:click="stopRedirection(index)">disable</button>
 					<button v-else :disabled="duplicatedExternalPorts" v-on:click="startRedirection(index)">enable</button>
 				</td>
+				<td>
+					<button :disabled="redirection.isStarted == true" v-on:click="removeRedirection(index)">remove</button>
+				</td>
 			</tr>
 			<tr>
-				<td colspan="6"></td>
+				<td colspan="7"></td>
 				<td><button v-on:click="addRedirection">add</button></td>
 			</tr>
 		</table>
-
-		<div class="editorInputContainer">
-			<p>Edit configuration:</p>
-			<textarea v-model="configurationEditor"> </textarea>
-
-			<div style="display: flex; flex-direction: row; justify-content: space-between;">
-				<button v-on:click="copyConfigurationToClipBoard">Copy current configuration to clipboard</button>
-				<button v-on:click="applyConfiguration">Apply configuration</button>
-			</div>
-		</div>
 	</div>
 </div>

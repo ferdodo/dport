@@ -3,30 +3,25 @@ import Redirection from "../lib/Redirection.ts";
 import Vue from "vue";
 import "./style.css";
 import { ipcRenderer, clipboard, remote } from "electron";
+import { findDuplicates, removeFromArray } from "./utils";
 
 var div = document.createElement("div");
 div.id = "app";
 document.body.appendChild(div);
 
-// https://stackoverflow.com/questions/840781/get-all-non-unique-values-i-e-duplicate-more-than-one-occurrence-in-an-array
-const findDuplicates = (arr) => {
-	let sorted_arr = arr.slice().sort();
-	let results = [];
-	for (let i = 0; i < sorted_arr.length - 1; i++) {
-		if (sorted_arr[i + 1] == sorted_arr[i]) {
-			results.push(sorted_arr[i]);
-		}
-	}
-	return results;
-};
-
 new Vue({
 	el: "#app",
 	template,
-	data: () => ({
-		redirections: [new Redirection(ipcRenderer), new Redirection(ipcRenderer).setValue("externalPort", 8081)],
-		configurationEditor: "",
-	}),
+
+	data() {
+		const defaultConf = [new Redirection(ipcRenderer), new Redirection(ipcRenderer).setValue("externalPort", 8081)];
+		const loaded = this.loadConfiguration();
+
+		return {
+			redirections: loaded.length ? loaded : defaultConf,
+		};
+	},
+
 	methods: {
 		setRedirection(property, index, value) {
 			const redirection = this.redirections[index];
@@ -42,18 +37,25 @@ new Vue({
 			const stoppedRedirection = startedRedirection.setStop();
 			this.redirections = Object.assign([], this.redirections, { [index]: stoppedRedirection });
 		},
+
 		stopRedirection: async function (index) {
 			const redirection = this.redirections[index];
 			await redirection.stop();
 		},
+
 		addRedirection: function () {
 			const newRedirection = new Redirection(ipcRenderer);
 			this.redirections = this.redirections.concat(newRedirection);
 		},
-		applyConfiguration() {
-			const configuration = JSON.parse(this.configurationEditor);
 
-			this.redirections = configuration.map((redirectionJson) => {
+		removeRedirection: function (index) {
+			this.redirections = removeFromArray(this.redirections, index);
+		},
+
+		loadConfiguration() {
+			const configuration = JSON.parse(window.localStorage.getItem("configuration")) || [];
+
+			return configuration.map((redirectionJson) => {
 				return new Redirection(ipcRenderer)
 					.setValue("externalPort", redirectionJson.externalPort)
 					.setValue("internalPort", redirectionJson.internalPort)
@@ -63,10 +65,10 @@ new Vue({
 					.setValue("user", redirectionJson.user);
 			});
 		},
-		copyConfigurationToClipBoard() {
-			const text = this.configurationEditor || JSON.stringify(this.configuration, null, 4);
-			clipboard.writeText(text);
-			this.configurationEditor = this.configurationEditor || text;
+
+		saveConfiguration() {
+			const value = JSON.stringify(this.configuration);
+			window.localStorage.setItem("configuration", value);
 		},
 
 		minimize() {
@@ -88,6 +90,11 @@ new Vue({
 
 		configuration: function () {
 			return this.redirections.map((redirection) => redirection.toJSON());
+		},
+	},
+	watch: {
+		configuration() {
+			this.saveConfiguration();
 		},
 	},
 });
