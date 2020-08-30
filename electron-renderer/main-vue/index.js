@@ -33,6 +33,7 @@ new Vue({
 			const newRedirection = redirection.setValue(property, value);
 			this.redirections = Object.assign([], this.redirections, { [index]: newRedirection });
 		},
+
 		startRedirection: async function (index) {
 			const redirection = this.redirections[index];
 			const startedRedirection = redirection.setStart();
@@ -67,10 +68,12 @@ new Vue({
 			clipboard.writeText(text);
 			this.configurationEditor = this.configurationEditor || text;
 		},
+
 		minimize() {
 			const win = remote.getCurrentWindow();
 			win.minimize();
 		},
+
 		close() {
 			const win = remote.getCurrentWindow();
 			win.close();
@@ -82,6 +85,7 @@ new Vue({
 			const duplicates = findDuplicates(externalPorts);
 			return Boolean(duplicates.length);
 		},
+
 		configuration: function () {
 			return this.redirections.map((redirection) => redirection.toJSON());
 		},
