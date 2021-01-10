@@ -1,7 +1,7 @@
 const { app, BrowserWindow, ipcMain, dialog } = require("electron");
 const fs = require("fs");
 const util = require("util");
-const Redirection = require("./lib/Redirection.ts");
+import Redirection from "./lib/Redirection.ts";
 const path = require("path");
 const redirectionCache = {};
 
@@ -45,14 +45,14 @@ async function createWindow() {
 	return win;
 }
 
-async function handleStartRedirection(event, { externalPort, internalPort, internalHost, targetHost, targetSshPort, user }) {
-	if (redirectionCache[externalPort]) throw new Error("External port is already used !");
-	redirectionCache[externalPort] = new Redirection(externalPort, internalPort, internalHost, targetHost, targetSshPort, user);
-	await redirectionCache[externalPort].waitStop();
-	delete redirectionCache[externalPort];
+async function handleStartRedirection(event, redirectionJson) {
+	if (redirectionCache[redirectionJson.externalPort]) throw new Error("External port is already used !");
+	redirectionCache[redirectionJson.externalPort] = new Redirection(redirectionJson);
+	await redirectionCache[redirectionJson.externalPort].waitStop();
+	delete redirectionCache[redirectionJson.externalPort];
 }
 
-async function handleStopRedirection(event, { externalPort }) {
-	if (!redirectionCache[externalPort]) throw new Error("Unknown external port !");
-	redirectionCache[externalPort].stop();
+async function handleStopRedirection(event, redirectionJson) {
+	if (!redirectionCache[redirectionJson.externalPort]) throw new Error("Unknown external port !");
+	redirectionCache[redirectionJson.externalPort].stop();
 }
