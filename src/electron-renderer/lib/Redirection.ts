@@ -19,7 +19,7 @@ export default class RedirectionRenderer extends Redirection {
 		return this.#state;
 	}
 
-	set(props: RedirectionJson, state = State.Stopped){
+	set(props: RedirectionJson, state?: State){
 		const newProps = super.set(props).json;
 		return new RedirectionRenderer(newProps, this.#ipcRenderer, state);
 	}
