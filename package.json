@@ -2,10 +2,10 @@
 	"name": "dport",
 	"version": "0.3.0",
 	"description": "GUI for SSH port forwarding.",
-	"main": "electron-main/dist/main.js",
+	"main": "src/electron-main/dist/main.js",
 	"scripts": {
-		"build-1": "cd electron-main && webpack",
-		"build-0": "npm run build-1 && cd electron-renderer && webpack",
+		"build-1": "npm run --prefix src/electron-main build",
+		"build-0": "npm run build-1 && npm run --prefix src/electron-renderer build",
 		"build": "npm run build-0 && electron-builder"
 	},
 	"repository": {

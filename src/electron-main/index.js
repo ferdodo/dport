@@ -41,7 +41,7 @@ async function createWindow() {
 
 	win.setMenuBarVisibility(false);
 	win.rezisable = false;
-	await win.loadFile("electron-renderer/dist/index.html");
+	await win.loadFile("src/electron-renderer/dist/index.html");
 	return win;
 }
 

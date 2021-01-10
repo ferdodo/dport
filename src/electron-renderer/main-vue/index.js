@@ -1,5 +1,5 @@
 import template from "./template.html";
-import Redirection from "../lib/Redirection.ts";
+import { default as Redirection, State } from "../lib/Redirection.ts";
 import Vue from "vue";
 import "./style.css";
 import { ipcRenderer, clipboard, remote } from "electron";
@@ -14,7 +14,7 @@ new Vue({
 	template,
 
 	data() {
-		const defaultConf = [new Redirection(ipcRenderer), new Redirection(ipcRenderer).setValue("externalPort", 8081)];
+		const defaultConf = [new Redirection({}, ipcRenderer), new Redirection({}, ipcRenderer).set({externalPort: 8081})];
 		const loaded = this.loadConfiguration();
 
 		return {
@@ -25,16 +25,16 @@ new Vue({
 	methods: {
 		setRedirection(property, index, value) {
 			const redirection = this.redirections[index];
-			const newRedirection = redirection.setValue(property, value);
+			const newRedirection = redirection.set({[property]: value});
 			this.redirections = Object.assign([], this.redirections, { [index]: newRedirection });
 		},
 
 		startRedirection: async function (index) {
 			const redirection = this.redirections[index];
-			const startedRedirection = redirection.setStart();
+			const startedRedirection = redirection.set({}, State.Started);
 			this.redirections = Object.assign([], this.redirections, { [index]: startedRedirection });
 			await startedRedirection.start();
-			const stoppedRedirection = startedRedirection.setStop();
+			const stoppedRedirection = startedRedirection.set({}, State.Stopped);
 			this.redirections = Object.assign([], this.redirections, { [index]: stoppedRedirection });
 		},
 
@@ -44,7 +44,7 @@ new Vue({
 		},
 
 		addRedirection: function () {
-			const newRedirection = new Redirection(ipcRenderer);
+			const newRedirection = new Redirection({}, ipcRenderer);
 			this.redirections = this.redirections.concat(newRedirection);
 		},
 
@@ -56,13 +56,7 @@ new Vue({
 			const configuration = JSON.parse(window.localStorage.getItem("configuration")) || [];
 
 			return configuration.map((redirectionJson) => {
-				return new Redirection(ipcRenderer)
-					.setValue("externalPort", redirectionJson.externalPort)
-					.setValue("internalPort", redirectionJson.internalPort)
-					.setValue("internalHost", redirectionJson.internalHost)
-					.setValue("targetHost", redirectionJson.targetHost)
-					.setValue("targetSshPort", redirectionJson.targetSshPort)
-					.setValue("user", redirectionJson.user);
+				return new Redirection(redirectionJson, ipcRenderer);
 			});
 		},
 
@@ -89,8 +83,10 @@ new Vue({
 		},
 
 		configuration: function () {
-			return this.redirections.map((redirection) => redirection.toJSON());
+			return this.redirections.map((redirection) => redirection.json);
 		},
+
+		State: ()=> State
 	},
 	watch: {
 		configuration() {
