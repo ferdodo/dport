@@ -1,5 +1,5 @@
 const { spawn } = require("child_process");
-import { default as Redirection, RedirectionJson } from '../../../lib/redirection.ts';
+import { default as Redirection, RedirectionJson } from '../../lib/redirection.ts';
 
 export default class RedirectionMain extends Redirection {
 	#process: any;

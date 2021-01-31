@@ -21,15 +21,25 @@
 				</td>
 			</tr>
 			<tr style="font-weight: 800;">
-				<td>local_port</td>
-				<td>remote_address</td>
-				<td>remote_port</td>
-				<td>user</td>
-				<td>server</td>
-				<td>server_ssh_port</td>
+				<td> <span> label </span> </td>
+				<td> <span> local_port </span> </td>
+				<td> <span> remote_address </span> </td>
+				<td> <span> remote_port </span> </td>
+				<td> <span> user </span> </td>
+				<td> <span> server </span> </td>
+				<td> <span> server_ssh_port </span> </td>
 				<td colspan="3"></td>
 			</tr>
 			<tr v-for="(redirection, index) in redirections">
+				<td>
+					<input
+						:value="redirection.label"
+						@change="setRedirection('label', index, $event.target.value)"
+						style="min-width: 6.3rem"
+						type="text"
+						 spellcheck="false"
+					/>
+				</td>
 				<td>
 					<input
 						:disabled="redirection.state === State.Started"

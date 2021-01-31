@@ -1,4 +1,4 @@
-import { default as Redirection, RedirectionJson } from '../../../lib/redirection.ts';
+import { default as Redirection, RedirectionJson } from '../../lib/redirection.ts';
 
 export enum State {
 	Started,
