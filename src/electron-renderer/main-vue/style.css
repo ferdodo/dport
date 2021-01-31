@@ -24,6 +24,11 @@ input {
 	width: 100%;
 }
 
+
+p, span {
+	user-select: none;
+}
+
 .drag-title {
 	-webkit-app-region: drag;
 	width: 100%;

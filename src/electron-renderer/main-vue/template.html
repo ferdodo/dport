@@ -45,6 +45,8 @@
 						:disabled="redirection.state === State.Started"
 						:value="redirection.externalPort"
 						@change="setRedirection('externalPort', index, $event.target.value)"
+						type="text"
+						 spellcheck="false"
 					/>
 				</td>
 				<td>
@@ -52,6 +54,8 @@
 						:disabled="redirection.state === State.Started"
 						:value="redirection.internalHost"
 						@change="setRedirection('internalHost', index, $event.target.value)"
+						type="text"
+						 spellcheck="false"
 					/>
 				</td>
 				<td>
@@ -59,6 +63,8 @@
 						:disabled="redirection.state === State.Started"
 						:value="redirection.internalPort"
 						@change="setRedirection('internalPort', index, $event.target.value)"
+						type="text"
+						 spellcheck="false"
 					/>
 				</td>
 				<td>
@@ -66,6 +72,8 @@
 						:disabled="redirection.state === State.Started"
 						:value="redirection.user"
 						@change="setRedirection('user', index, $event.target.value)"
+						type="text"
+						 spellcheck="false"
 					/>
 				</td>
 				<td>
@@ -73,6 +81,8 @@
 						:disabled="redirection.state === State.Started"
 						:value="redirection.targetHost"
 						@change="setRedirection('targetHost', index, $event.target.value)"
+						type="text"
+						 spellcheck="false"
 					/>
 				</td>
 				<td>
@@ -80,6 +90,8 @@
 						:disabled="redirection.state === State.Started"
 						:value="redirection.targetSshPort"
 						@change="setRedirection('targetSshPort', index, $event.target.value)"
+						type="text"
+						 spellcheck="false"
 					/>
 				</td>
 				<td>
