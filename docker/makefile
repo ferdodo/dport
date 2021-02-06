@@ -11,4 +11,4 @@ build:
 
 get_app_image: build
 	docker run --rm dport-build cat /dport/dist/dport-0.3.0.AppImage > ../dport-0.3.0.AppImage
-
+	# Successfully built AppImage.
