@@ -1,16 +1,11 @@
 import template from "./template.html";
-import { default as Redirection, State } from "../lib/redirection";
+import { default as Redirection, State } from "../../lib/redirection";
 import Vue from "vue";
 import "./style.css";
 import { ipcRenderer, clipboard, remote } from "electron";
 import { findDuplicates, removeFromArray } from "./utils";
 
-var div = document.createElement("div");
-div.id = "app";
-document.body.appendChild(div);
-
-new Vue({
-	el: "#app",
+Vue.component("gui", {
 	template,
 
 	data() {
@@ -63,17 +58,7 @@ new Vue({
 		saveConfiguration() {
 			const value = JSON.stringify(this.configuration);
 			window.localStorage.setItem("configuration", value);
-		},
-
-		minimize() {
-			const win = remote.getCurrentWindow();
-			win.minimize();
-		},
-
-		close() {
-			const win = remote.getCurrentWindow();
-			win.close();
-		},
+		}
 	},
 	computed: {
 		duplicatedExternalPorts() {
