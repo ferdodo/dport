@@ -11,13 +11,15 @@
 			<tr>
 				<td colspan="7">
 					<p><b>SSH tunneling</b></p>
+					
 					<p>
 						Enabled lines will execute the following command: &emsp;
-						<code class="sample-command"
-							>ssh &#60;local_port&#62;:&#60;remote_address&#62;:&#60;remote_port&#62; &#60;user&#62;@&#60;server&#62; -p
-							&#60;server_ssh_port&#62;</code
-						>
+						<code class="sample-command">
+							ssh&nbsp;-p&nbsp;&#60;server_ssh_port&#62;&nbsp;-L&nbsp;&#60;local_port&#62;:&#60;remote_address&#62;:&#60;remote_port&#62;&nbsp;&#60;user&#62;@&#60;server&#62;
+						</code>
 					</p>
+
+					<p> See ssh documentation for more informations. </p>
 				</td>
 			</tr>
 			<tr style="font-weight: 800;">

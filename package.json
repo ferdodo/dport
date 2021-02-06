@@ -1,6 +1,6 @@
 {
 	"name": "dport",
-	"version": "0.3.0",
+	"version": "0.4.0",
 	"description": "GUI for SSH port forwarding.",
 	"main": "src/electron-main/dist/main.js",
 	"scripts": {
