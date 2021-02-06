@@ -1,5 +1,5 @@
 import template from "./template.html";
-import { default as Redirection, State } from "../lib/Redirection.ts";
+import { default as Redirection, State } from "../lib/redirection";
 import Vue from "vue";
 import "./style.css";
 import { ipcRenderer, clipboard, remote } from "electron";

@@ -21,10 +21,6 @@ module.exports = {
 				use: ["style-loader", "css-loader"],
 			},
 			{
-				test: /\.ts$/,
-				use: ["ts-loader"],
-			},
-			{
 				test: /\.(woff|woff2)$/i,
 				use: ["file-loader"],
 			},

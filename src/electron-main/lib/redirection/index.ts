@@ -1,18 +1,18 @@
 const { spawn } = require("child_process");
-import { default as Redirection, RedirectionJson } from '../../lib/redirection.ts';
+import { default as Redirection, RedirectionJson } from '../../../lib/redirection';
 
 export default class RedirectionMain extends Redirection {
-	#process: any;
+	#process;
 
 	constructor(props: RedirectionJson) {
 		super(props);
 
 		const args = [
 			"-p",
-			`${ this.targetSshPort }`,
+			`${ super.targetSshPort }`,
 			"-L",
-			`${ this.externalPort }:${ this.internalHost }:${ this.internalPort }`,
-			`${ this.user }@${ this.targetHost }`,
+			`${ super.externalPort }:${ super.internalHost }:${ super.internalPort }`,
+			`${ super.user }@${ super.targetHost }`,
 			"sleep",
 			"infinity",
 		];

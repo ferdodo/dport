@@ -4,6 +4,7 @@
 		"target": "es2020",
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
-		"noImplicitReturns": true
+		"noImplicitAny": false,
+		"moduleResolution": "node"
 	}
 }

@@ -3,6 +3,8 @@
 		"strict": true,
 		"target": "es2020",
 		"noUnusedLocals": true,
-		"noUnusedParameters": true
+		"noUnusedParameters": true,
+		"noImplicitAny": false,
+		"moduleResolution": "node"
 	}
 }

@@ -1,8 +1,8 @@
 const { app, BrowserWindow, ipcMain, dialog } = require("electron");
-const fs = require("fs");
-const util = require("util");
-import Redirection from "./lib/Redirection.ts";
-const path = require("path");
+//const fs = require("fs");
+// const util = require("util");
+import Redirection from "./lib/redirection";
+//const path = require("path");
 const redirectionCache = {};
 
 (async function main() {

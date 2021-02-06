@@ -1,4 +1,4 @@
-import { default as Redirection, RedirectionJson } from '../../lib/redirection.ts';
+import { default as Redirection, RedirectionJson } from '../../lib/redirection';
 
 export enum State {
 	Started,
@@ -6,10 +6,10 @@ export enum State {
 }
 
 export default class RedirectionRenderer extends Redirection {
-	#ipcRenderer: any;
+	#ipcRenderer;
 	#state: State;
 
-	constructor(props: RedirectionJson, ipcRenderer: any, state = State.Stopped) {
+	constructor(props: RedirectionJson, ipcRenderer, state = State.Stopped) {
 		super(props);
 		this.#ipcRenderer = ipcRenderer;
 		this.#state = state;
@@ -25,10 +25,10 @@ export default class RedirectionRenderer extends Redirection {
 	}
 
 	async start() {
-		await this.#ipcRenderer.invoke("startRedirection", this.json);
+		await this.#ipcRenderer.invoke("startRedirection", super.json);
 	}
 
 	async stop() {
-		await this.#ipcRenderer.invoke("stopRedirection", this.json);
+		await this.#ipcRenderer.invoke("stopRedirection", super.json);
 	}
 }
