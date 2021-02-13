@@ -1,6 +1,6 @@
 linux:
   target:
-    - deb
     - AppImage
+    - deb
   artifactName: "${name}-${version}.${ext}"
   category: Utility
