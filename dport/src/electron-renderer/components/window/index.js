@@ -7,7 +7,7 @@ Vue.component("window", {
 	template,
 
 	props: {
-		title: String,
+		title: String
 	},
 
 	methods: {
@@ -19,6 +19,6 @@ Vue.component("window", {
 		close() {
 			const win = remote.getCurrentWindow();
 			win.close();
-		},
-	},
+		}
+	}
 });

@@ -24,7 +24,7 @@ input {
 	width: 100%;
 }
 
-
-p, span {
+p,
+span {
 	user-select: none;
 }

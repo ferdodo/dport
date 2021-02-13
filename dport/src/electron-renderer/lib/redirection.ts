@@ -1,8 +1,8 @@
-import { default as Redirection, RedirectionJson } from '../../lib/redirection';
+import { default as Redirection, RedirectionJson } from "../../lib/redirection";
 
 export enum State {
 	Started,
-	Stopped,
+	Stopped
 }
 
 export default class RedirectionRenderer extends Redirection {
@@ -15,11 +15,11 @@ export default class RedirectionRenderer extends Redirection {
 		this.#state = state;
 	}
 
-	get state(){
+	get state() {
 		return this.#state;
 	}
 
-	set(props: RedirectionJson, state?: State){
+	set(props: RedirectionJson, state?: State) {
 		const newProps = super.set(props).json;
 		return new RedirectionRenderer(newProps, this.#ipcRenderer, state);
 	}

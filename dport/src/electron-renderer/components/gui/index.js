@@ -9,18 +9,18 @@ Vue.component("gui", {
 	template,
 
 	data() {
-		const defaultConf = [new Redirection({}, ipcRenderer), new Redirection({}, ipcRenderer).set({externalPort: 8081})];
+		const defaultConf = [new Redirection({}, ipcRenderer), new Redirection({}, ipcRenderer).set({ externalPort: 8081 })];
 		const loaded = this.loadConfiguration();
 
 		return {
-			redirections: loaded.length ? loaded : defaultConf,
+			redirections: loaded.length ? loaded : defaultConf
 		};
 	},
 
 	methods: {
 		setRedirection(property, index, value) {
 			const redirection = this.redirections[index];
-			const newRedirection = redirection.set({[property]: value});
+			const newRedirection = redirection.set({ [property]: value });
 			this.redirections = Object.assign([], this.redirections, { [index]: newRedirection });
 		},
 
@@ -71,11 +71,11 @@ Vue.component("gui", {
 			return this.redirections.map((redirection) => redirection.json);
 		},
 
-		State: ()=> State
+		State: () => State
 	},
 	watch: {
 		configuration() {
 			this.saveConfiguration();
-		},
-	},
+		}
+	}
 });

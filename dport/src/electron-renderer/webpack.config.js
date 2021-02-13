@@ -7,32 +7,32 @@ module.exports = {
 	entry: "./index.js",
 	output: {
 		path: path.resolve(__dirname, "dist"),
-		filename: "index.js",
+		filename: "index.js"
 	},
 	plugins: [new HtmlWebpackPlugin({ title: "dport" })],
 	module: {
 		rules: [
 			{
 				test: /\.html$/,
-				use: ["raw-loader"],
+				use: ["raw-loader"]
 			},
 			{
 				test: /\.css$/,
-				use: ["style-loader", "css-loader"],
+				use: ["style-loader", "css-loader"]
 			},
 			{
 				test: /\.(woff|woff2)$/i,
-				use: ["file-loader"],
-			},
-		],
+				use: ["file-loader"]
+			}
+		]
 	},
 	target: "electron-renderer",
 	resolve: {
 		alias: {
-			vue$: "vue/dist/vue.esm.js",
-		},
+			vue$: "vue/dist/vue.esm.js"
+		}
 	},
-	externals: createExternals(),
+	externals: createExternals()
 };
 
 function createExternals() {

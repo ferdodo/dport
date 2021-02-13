@@ -35,8 +35,8 @@ async function createWindow() {
 		height: 273,
 		frame: false,
 		webPreferences: {
-			nodeIntegration: true,
-		},
+			nodeIntegration: true
+		}
 	});
 
 	win.setMenuBarVisibility(false);
