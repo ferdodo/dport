@@ -1,6 +1,0 @@
-{
-	"scripts": {
-		"build-types": "tsc  --declaration --emitDeclarationOnly",
-		"build": "esbuild index.js --bundle --platform=node --external:electron --outfile=dist/main.js"
-	}
-}

@@ -1,0 +1,8 @@
+{
+	"package":{
+		"productName": "dport"
+	},
+	"build": {
+		"distDir": "/dport/src/app/dist"
+	}
+}

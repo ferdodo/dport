@@ -4,10 +4,10 @@ const nodeExternals = require("webpack-node-externals");
 
 module.exports = {
 	mode: "development",
-	entry: "./index.js",
+	entry: "./src/index.js",
 	output: {
 		path: path.resolve(__dirname, "dist"),
-		filename: "index.js"
+		filename: "bundle.js"
 	},
 	plugins: [new HtmlWebpackPlugin({ title: "dport" })],
 	module: {
@@ -26,7 +26,7 @@ module.exports = {
 			}
 		]
 	},
-	target: "electron-renderer",
+	target: "web",
 	resolve: {
 		alias: {
 			vue$: "vue/dist/vue.esm.js"
@@ -37,6 +37,6 @@ module.exports = {
 
 function createExternals() {
 	const modulesDir = "../node_modules";
-	const allowlist = ["vue", "electron"];
+	const allowlist = ["vue"];
 	return nodeExternals({ modulesDir, allowlist });
 }

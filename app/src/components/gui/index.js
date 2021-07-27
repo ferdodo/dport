@@ -1,15 +1,14 @@
 import template from "./template.html";
-import { default as Redirection, State } from "../../lib/redirection";
+import Redirection from "../../lib/redirection";
 import Vue from "vue";
 import "./style.css";
-import { ipcRenderer, clipboard, remote } from "electron";
 import { findDuplicates, removeFromArray } from "./utils";
 
 Vue.component("gui", {
 	template,
 
 	data() {
-		const defaultConf = [new Redirection({}, ipcRenderer), new Redirection({}, ipcRenderer).set({ externalPort: 8081 })];
+		const defaultConf = [new Redirection(), new Redirection().set({ externalPort: 8081 })];
 		const loaded = this.loadConfiguration();
 
 		return {
@@ -25,22 +24,23 @@ Vue.component("gui", {
 		},
 
 		startRedirection: async function (index) {
-			const redirection = this.redirections[index];
-			const startedRedirection = redirection.set({}, State.Started);
-			this.redirections = Object.assign([], this.redirections, { [index]: startedRedirection });
-			await startedRedirection.start();
-			const stoppedRedirection = startedRedirection.set({}, State.Stopped);
-			this.redirections = Object.assign([], this.redirections, { [index]: stoppedRedirection });
+			//const redirection = this.redirections[index];
+			//const startedRedirection = redirection.set({}, State.Started);
+			//this.redirections = Object.assign([], this.redirections, { [index]: startedRedirection });
+			//await startedRedirection.start();
+			//const stoppedRedirection = startedRedirection.set({}, State.Stopped);
+			//this.redirections = Object.assign([], this.redirections, { [index]: stoppedRedirection });
+			await Promise.resolve();
 		},
 
 		stopRedirection: async function (index) {
-			const redirection = this.redirections[index];
-			await redirection.stop();
+			// const redirection = this.redirections[index];
+			// await redirection.stop();
+			await Promise.resolve();
 		},
 
 		addRedirection: function () {
-			const newRedirection = new Redirection({}, ipcRenderer);
-			this.redirections = this.redirections.concat(newRedirection);
+			this.redirections = this.redirections.concat(new Redirection());
 		},
 
 		removeRedirection: function (index) {
@@ -49,10 +49,7 @@ Vue.component("gui", {
 
 		loadConfiguration() {
 			const configuration = JSON.parse(window.localStorage.getItem("configuration")) || [];
-
-			return configuration.map((redirectionJson) => {
-				return new Redirection(redirectionJson, ipcRenderer);
-			});
+			return configuration.map(props => new Redirection(props));
 		},
 
 		saveConfiguration() {
@@ -69,9 +66,7 @@ Vue.component("gui", {
 
 		configuration: function () {
 			return this.redirections.map((redirection) => redirection.json);
-		},
-
-		State: () => State
+		}
 	},
 	watch: {
 		configuration() {

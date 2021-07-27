@@ -1,6 +1,0 @@
-{
-	"scripts": {
-		"build-types": "tsc --declaration --emitDeclarationOnly",
-		"build": "tsc && webpack"
-	}
-}

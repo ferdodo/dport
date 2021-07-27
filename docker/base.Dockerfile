@@ -2,8 +2,15 @@ from node
 
 
 # apt dependencies
-RUN apt update
-RUN apt install p7zip-full -y
+RUN apt-get update
+RUN apt-get install libwebkit2gtk-4.0-dev build-essential curl wget libssl-dev libgtk-3-dev squashfs-tools jq -y
+
+
+# Rust
+RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
+ENV PATH="/root/.cargo/bin:${PATH}"
+RUN echo 'source /root/.cargo/env' >> $HOME/.bashrc
+RUN rustc --version
 
 
 # node_modules
@@ -13,7 +20,3 @@ COPY npm-shrinkwrap.json .
 RUN npm install
 
 
-# prefetch electron-builder stuff with undocumented procedure (┛✧Д✧)┛彡┻━┻
-COPY electron-builder.yml electron-builder.yml
-RUN ./node_modules/app-builder-bin/linux/x64/app-builder prefetch-tools
-RUN ./node_modules/app-builder-bin/linux/x64/app-builder download-electron --configuration=[{\"platform\":\"linux\",\"version\":\"9.1.0\",\"arch\":\"x64\"}]

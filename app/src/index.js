@@ -1,6 +1,6 @@
 import Vue from "vue";
-import "../../node_modules/98.css/dist/98.css";
-import "./main.css";
+import "../node_modules/98.css/dist/98.css";
+import "./style.css";
 import "./components/gui";
 import "./components/window";
 
