@@ -21,16 +21,14 @@ Setup this project for tauri
 Build the app (Choose any of the following)
 
     ./dport/app$ npm run build
-    ./dport/app$ npm run build-debug
+    ./dport/app$ npm run build-debug-appimage
 
 ## Build with Docker and Makefile
 
 Install Docker and Makefile.
 
-Build, and copy to your filesystem.
+This will copy the `.AppImage` or `.deb` files directly in your filesystem in the `/tmp` folder.
 
-    ./dport/docker$ make build
+    ./dport/docker$ make get_debug_app_image
     ./dport/docker$ make get_app_image
     ./dport/docker$ make get_deb
-
-AppImage and debs file will be copied into your /tmp folder.
