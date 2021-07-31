@@ -35,6 +35,6 @@ if [ "$buildRustCache" == true ]; then
 	mkdir -p dist
 	touch dist/index.html
 	npm run tauri build
-	npm run tauri build --debug
+    npm run tauri build -- --debug
 	rm -r /dport/app/dist
 fi
