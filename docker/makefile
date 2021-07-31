@@ -23,3 +23,7 @@ get_app_image: build
 get_deb: build
 	docker run --rm dport-build cat /dport/app/src-tauri/target/release/bundle/deb/dport_0.5.0_amd64.deb > /tmp/dport-0.5.0.deb
 	# Successfully built deb package.
+
+print_tauri_config:
+	docker run --rm dport-base cat /dport/app/src-tauri/tauri.conf.json
+	docker run --rm dport-base npm run tauri info
