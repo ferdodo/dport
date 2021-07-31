@@ -3,13 +3,13 @@ set -e
 
 while [ $# -ne 0 ]
 do
-    arg="$1"
-    case "$arg" in
-        --build-rust-cache)
-            buildRustCache=true
-            ;;
-    esac
-    shift
+	arg="$1"
+	case "$arg" in
+		--build-rust-cache)
+			buildRustCache=true
+			;;
+	esac
+	shift
 done
 
 
@@ -35,6 +35,6 @@ if [ "$buildRustCache" == true ]; then
 	mkdir -p dist
 	touch dist/index.html
 	npm run tauri build
-    npm run tauri build -- --debug
+	npm run tauri build -- --debug
 	rm -r /dport/app/dist
 fi
