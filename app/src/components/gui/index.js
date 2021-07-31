@@ -1,5 +1,5 @@
 import template from "./template.html";
-import Redirection from "../../lib/redirection";
+import { default as Redirection, State} from "../../lib/redirection";
 import Vue from "vue";
 import "./style.css";
 import { findDuplicates, removeFromArray } from "./utils";
@@ -12,7 +12,8 @@ Vue.component("gui", {
 		const loaded = this.loadConfiguration();
 
 		return {
-			redirections: loaded.length ? loaded : defaultConf
+			redirections: loaded.length ? loaded : defaultConf,
+			State
 		};
 	},
 

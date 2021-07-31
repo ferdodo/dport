@@ -6,8 +6,8 @@
 	"scripts": {
 		"test": "echo no tests yet",
 		"build-types": "tsc --declaration --emitDeclarationOnly",
-		"build-tauri": "tauri build",
-		"build": "tsc && webpack && npm run build-tauri",
+		"build-debug-appimage": "tsc && webpack --mode development && tauri build --debug --bundle appimage",
+		"build": "tsc && webpack && tauri build",
 		"tauri": "tauri"
 	},
 	"repository": {

@@ -14,9 +14,20 @@ RUN rustc --version
 
 
 # node_modules
-WORKDIR /dport
+WORKDIR /dport/app
 COPY package.json .
 COPY npm-shrinkwrap.json .
 RUN npm install
 
 
+# tauri setup
+COPY scripts scripts
+COPY tauri.conf.json .
+COPY icon.png .
+RUN ./scripts/tauri-setup.sh --build-rust-cache
+
+
+# sources
+COPY src src
+COPY tsconfig.json .
+COPY webpack.config.js .

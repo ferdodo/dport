@@ -1,4 +1,5 @@
 import { default as RedirectionModel, RedirectionJson } from "./model";
+export { State } from "./model"
 
 export default class Redirection extends RedirectionModel {
 	constructor(props?: RedirectionJson) {
