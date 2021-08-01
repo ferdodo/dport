@@ -4,14 +4,14 @@ export enum State {
 }
 
 export interface RedirectionJson {
-	label: string;
-	externalPort: number;
-	internalPort: number;
-	internalHost: string;
-	targetHost: string;
-	targetSshPort: string;
-	user: string;
-	state: State;
+	label?: string;
+	externalPort?: number;
+	internalPort?: number;
+	internalHost?: string;
+	targetHost?: string;
+	targetSshPort?: string;
+	user?: string;
+	state?: State;
 }
 
 const defaultRedirection: RedirectionJson = {
@@ -28,7 +28,7 @@ const defaultRedirection: RedirectionJson = {
 export default class Redirection {
 	#props: RedirectionJson;
 
-	constructor(props: RedirectionJson = defaultRedirection) {
+	constructor(props: RedirectionJson) {
 		this.#props = { ...defaultRedirection, ...props };
 	}
 
@@ -66,5 +66,26 @@ export default class Redirection {
 
 	get state() {
 		return this.#props.state;
+	}
+
+	get json(){
+		return {
+			label: this.label,
+			externalPort: this.externalPort,
+			internalPort: this.internalPort,
+			internalHost: this.internalHost,
+			targetHost: this.targetHost,
+			targetSshPort: this.targetSshPort,
+			user: this.user,
+			state: this.state
+		};
+	}
+
+	get isStarted(){
+		return this.#props.state === State.Started;
+	}
+
+	get isStopped(){
+		return this.#props.state === State.Stopped;
 	}
 }

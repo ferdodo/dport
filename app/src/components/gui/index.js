@@ -24,27 +24,27 @@ Vue.component("gui", {
 			this.redirections = Object.assign([], this.redirections, { [index]: newRedirection });
 		},
 
-		startRedirection: async function (index) {
-			//const redirection = this.redirections[index];
-			//const startedRedirection = redirection.set({}, State.Started);
-			//this.redirections = Object.assign([], this.redirections, { [index]: startedRedirection });
-			//await startedRedirection.start();
-			//const stoppedRedirection = startedRedirection.set({}, State.Stopped);
-			//this.redirections = Object.assign([], this.redirections, { [index]: stoppedRedirection });
-			await Promise.resolve();
+		async startRedirection (index) {
+			this.redirections = Object.assign([], this.redirections, { 
+				[index]: this.redirections[index].set({ state: State.Started })
+			});
+
+			this.redirections = Object.assign([], this.redirections, { 
+				[index]: await this.redirections[index].waitEnd()
+			});
 		},
 
-		stopRedirection: async function (index) {
-			// const redirection = this.redirections[index];
-			// await redirection.stop();
-			await Promise.resolve();
+		async stopRedirection(index) {
+			this.redirections = Object.assign([], this.redirections, { 
+				[index]: await this.redirections[index].stop()
+			});
 		},
 
-		addRedirection: function () {
+		addRedirection () {
 			this.redirections = this.redirections.concat(new Redirection());
 		},
 
-		removeRedirection: function (index) {
+		removeRedirection (index) {
 			this.redirections = removeFromArray(this.redirections, index);
 		},
 
@@ -65,8 +65,11 @@ Vue.component("gui", {
 			return Boolean(duplicates.length);
 		},
 
-		configuration: function () {
-			return this.redirections.map((redirection) => redirection.json);
+		configuration () {
+			return this.redirections.map((redirection) => ({ 
+				...redirection.json, 
+				state: State.Stopped 
+			}));
 		}
 	},
 	watch: {
