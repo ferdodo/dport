@@ -4,7 +4,7 @@ import Vue from "vue";
 import "./style.css";
 import { findDuplicates, removeFromArray } from "./utils";
 
-Vue.component("gui", {
+export default {
 	template,
 
 	data() {
@@ -77,4 +77,4 @@ Vue.component("gui", {
 			this.saveConfiguration();
 		}
 	}
-});
+};
