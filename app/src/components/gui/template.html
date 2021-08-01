@@ -27,6 +27,7 @@
 		<tr v-for="(redirection, index) in redirections">
 			<td>
 				<input
+					:disabled="redirection.isStarted"
 					:value="redirection.label"
 					@change="setRedirection('label', index, $event.target.value)"
 					style="min-width: 6.3rem;"
@@ -36,7 +37,7 @@
 			</td>
 			<td>
 				<input
-					:disabled="redirection.state === State.Started"
+					:disabled="redirection.isStarted"
 					:value="redirection.externalPort"
 					@change="setRedirection('externalPort', index, $event.target.value)"
 					type="text"
@@ -45,7 +46,7 @@
 			</td>
 			<td>
 				<input
-					:disabled="redirection.state === State.Started"
+					:disabled="redirection.isStarted"
 					:value="redirection.internalHost"
 					@change="setRedirection('internalHost', index, $event.target.value)"
 					type="text"
@@ -54,7 +55,7 @@
 			</td>
 			<td>
 				<input
-					:disabled="redirection.state === State.Started"
+					:disabled="redirection.isStarted"
 					:value="redirection.internalPort"
 					@change="setRedirection('internalPort', index, $event.target.value)"
 					type="text"
@@ -63,7 +64,7 @@
 			</td>
 			<td>
 				<input
-					:disabled="redirection.state === State.Started"
+					:disabled="redirection.isStarted"
 					:value="redirection.user"
 					@change="setRedirection('user', index, $event.target.value)"
 					type="text"
@@ -72,7 +73,7 @@
 			</td>
 			<td>
 				<input
-					:disabled="redirection.state === State.Started"
+					:disabled="redirection.isStarted"
 					:value="redirection.targetHost"
 					@change="setRedirection('targetHost', index, $event.target.value)"
 					type="text"
@@ -81,7 +82,7 @@
 			</td>
 			<td>
 				<input
-					:disabled="redirection.state === State.Started"
+					:disabled="redirection.isStarted"
 					:value="redirection.targetSshPort"
 					@change="setRedirection('targetSshPort', index, $event.target.value)"
 					type="text"
@@ -89,11 +90,11 @@
 				/>
 			</td>
 			<td>
-				<button v-if="redirection.state === State.Started" v-on:click="stopRedirection(index)">disable</button>
+				<button v-if="redirection.isStarted" v-on:click="stopRedirection(index)">disable</button>
 				<button v-else :disabled="duplicatedExternalPorts" v-on:click="startRedirection(index)">enable</button>
 			</td>
 			<td>
-				<button :disabled="redirection.state === State.Started" v-on:click="removeRedirection(index)">remove</button>
+				<button :disabled="redirection.isStarted" v-on:click="removeRedirection(index)">remove</button>
 			</td>
 		</tr>
 		<tr>
