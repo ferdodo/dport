@@ -16,7 +16,7 @@ Install node modules.
 
 Setup this project for tauri
 
-    ./dport/app$ ./scripts/setup-tauri.sh
+    ./dport/app$ ./scripts/tauri-setup.sh
 
 Build the app (Choose any of the following)
 
