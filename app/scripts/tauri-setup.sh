@@ -14,7 +14,7 @@ done
 
 
 # generate config
-npm run tauri init
+npm run tauri init -- --ci
 
 # merge with personnal settings
 jq -s '.[0] * .[1]' src-tauri/tauri.conf.json tauri.conf.json > tmp.json
