@@ -21,14 +21,6 @@ export default class Redirection extends RedirectionModel {
 			];
 
 			this.#command = new Command('ssh', args);
-
-			// async function wrapper(command){
-			// 	const child = await command.spawn();
-			// 	return child;
-			// }
-// 
-			// this.#waitChild = wrapper(this.#command);
-
 			this.#waitChild = this.#command.spawn();			
 		}
 	}
