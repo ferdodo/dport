@@ -3,7 +3,7 @@
 		"productName": "dport"
 	},
 	"build": {
-		"distDir": "/dport/app/dist"
+		"distDir": "../dist"
 	},
 	"tauri":{
     	"allowlist": {
