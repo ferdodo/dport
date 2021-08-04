@@ -1,19 +1,35 @@
 import { default as RedirectionModel, RedirectionJson, State } from "./model";
-import { startRedirection } from "./utils";
 export { State } from "./model";
+import { Command } from './utils';
 
 export default class Redirection extends RedirectionModel {
-	#waitRedirectionEnd;
-	#stopRedirection;
+	#command;
+	#waitChild;
 
 	constructor(props: RedirectionJson = {}) {
 		super(props);
 
 		if (this.isStarted){
-			[ 
-				this.#waitRedirectionEnd, 
-				this.#stopRedirection 
-			] = startRedirection(props);
+			const args = [
+				"-p",
+				`${this.targetSshPort}`,
+				"-L",
+				`${this.externalPort}:${this.internalHost}:${this.internalPort}`,
+				`${this.user}@${this.targetHost}`,
+				"sleep",
+				"infinity"
+			];
+
+			this.#command = new Command('ssh', args);
+
+			// async function wrapper(command){
+			// 	const child = await command.spawn();
+			// 	return child;
+			// }
+// 
+			// this.#waitChild = wrapper(this.#command);
+
+			this.#waitChild = this.#command.spawn();			
 		}
 	}
 
@@ -26,7 +42,8 @@ export default class Redirection extends RedirectionModel {
 			throw new Error("Redirection is not started !");
 		}
 
-		await this.#stopRedirection();
+		const child = await this.#waitChild;
+		await child.kill();
 		return this.set({ state: State.Stopped });
 	}
 
@@ -35,7 +52,10 @@ export default class Redirection extends RedirectionModel {
 			throw new Error("Redirection is not started !");
 		}
 
-		await this.#waitRedirectionEnd;
+		await new Promise(resolve => {
+			this.#command.on('close', () => { resolve(); });
+		});
+
 		return this.set({ state: State.Stopped });
 	}
 }
