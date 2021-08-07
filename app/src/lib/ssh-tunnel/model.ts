@@ -3,7 +3,7 @@ export enum State {
 	Stopped
 }
 
-export interface RedirectionJson {
+export interface SshTunnelJson {
 	label?: string;
 	externalPort?: number;
 	internalPort?: number;
@@ -14,7 +14,7 @@ export interface RedirectionJson {
 	state?: State;
 }
 
-const defaultRedirection: RedirectionJson = {
+const defaultSshTunnel: SshTunnelJson = {
 	label: "My port forward",
 	externalPort: 8080,
 	internalPort: 8080,
@@ -25,16 +25,16 @@ const defaultRedirection: RedirectionJson = {
 	state: State.Stopped
 };
 
-export default class Redirection {
-	#props: RedirectionJson;
+export default class SshTunnel {
+	#props: SshTunnelJson;
 
-	constructor(props: RedirectionJson) {
-		this.#props = { ...defaultRedirection, ...props };
+	constructor(props: SshTunnelJson) {
+		this.#props = { ...defaultSshTunnel, ...props };
 		Object.freeze(this.#props);
 	}
 
-	set(props: RedirectionJson) {
-		return new Redirection({ ...this.#props, ...props });
+	set(props: SshTunnelJson) {
+		return new SshTunnel({ ...this.#props, ...props });
 	}
 
 	get label() {
@@ -83,7 +83,7 @@ export default class Redirection {
 
 	assertToBeStarted(){
 		if (this.isStopped){
-			throw new Error("Redirection is not started !");
+			throw new Error("SshTunnel is not started !");
 		}
 	}
 }

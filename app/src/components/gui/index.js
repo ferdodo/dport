@@ -1,80 +1,77 @@
 import template from "./template.html";
-import { default as Redirection, State} from "../../lib/redirection";
+import { default as SshTunnel, State} from "../../lib/ssh-tunnel";
 import Vue from "vue";
 import "./style.css";
-import { findDuplicates, removeFromArray } from "./utils";
 
 export default {
 	template,
 
 	data() {
-		const defaultConf = [new Redirection(), new Redirection().set({ externalPort: 8081 })];
-		const loaded = this.loadConfiguration();
+		const defaultConf = [new SshTunnel(), new SshTunnel().set({ externalPort: 8081 })];
+		const loaded = this.loadConfig();
 
 		return {
-			redirections: loaded.length ? loaded : defaultConf,
+			sshTunnels: loaded.length ? loaded : defaultConf,
 			State
 		};
 	},
 
 	methods: {
-		setRedirection(property, index, value) {
-			const redirection = this.redirections[index];
-			const newRedirection = redirection.set({ [property]: value });
-			this.redirections = Object.assign([], this.redirections, { [index]: newRedirection });
-		},
-
-		async startRedirection (index) {
-			this.redirections = Object.assign([], this.redirections, { 
-				[index]: this.redirections[index].set({ state: State.Started })
-			});
-
-			this.redirections = Object.assign([], this.redirections, { 
-				[index]: await this.redirections[index].waitEnd()
+		update(property, index, value) {
+			this.sshTunnels = Object.assign([], this.sshTunnels, { 
+				[index]: this.sshTunnels[index].set({ [property]: value })
 			});
 		},
 
-		async stopRedirection(index) {
-			this.redirections = Object.assign([], this.redirections, { 
-				[index]: await this.redirections[index].stop()
+		async start (index) {
+			this.update('state', index, State.Started);
+
+			this.sshTunnels = Object.assign([], this.sshTunnels, { 
+				[index]: await this.sshTunnels[index].waitEnd()
 			});
 		},
 
-		addRedirection () {
-			this.redirections = this.redirections.concat(new Redirection());
+		async stop(index) {
+			this.sshTunnels = Object.assign([], this.sshTunnels, { 
+				[index]: await this.sshTunnels[index].stop()
+			});
 		},
 
-		removeRedirection (index) {
-			this.redirections = removeFromArray(this.redirections, index);
+		add () {
+			this.sshTunnels = [...this.sshTunnels, new SshTunnel()];
 		},
 
-		loadConfiguration() {
-			const configuration = JSON.parse(window.localStorage.getItem("configuration")) || [];
-			return configuration.map(props => new Redirection(props));
+		remove (index) {
+			this.sshTunnels.splice(index, 1)
+			this.sshTunnels = [...sshTunnels];
 		},
 
-		saveConfiguration() {
-			const value = JSON.stringify(this.configuration);
-			window.localStorage.setItem("configuration", value);
+		loadConfig() {
+			const config = JSON.parse(window.localStorage.getItem("config")) || [];
+			return config.map(props => new SshTunnel(props));
+		},
+
+		saveConfig() {
+			const value = JSON.stringify(this.config);
+			window.localStorage.setItem("config", value);
 		}
 	},
 	computed: {
 		duplicatedExternalPorts() {
-			const externalPorts = this.redirections.map((redirection) => redirection.externalPort);
-			const duplicates = findDuplicates(externalPorts);
-			return Boolean(duplicates.length);
+			const externalPorts = this.sshTunnels.map((sshTunnel) => sshTunnel.externalPort);
+			return externalPorts.length != new Set(externalPorts).size;
 		},
 
-		configuration () {
-			return this.redirections.map((redirection) => ({ 
-				...redirection.json, 
+		config () {
+			return this.sshTunnels.map((sshTunnel) => ({ 
+				...sshTunnel.json, 
 				state: State.Stopped 
 			}));
 		}
 	},
 	watch: {
-		configuration() {
-			this.saveConfiguration();
+		config() {
+			this.saveConfig();
 		}
 	}
 };

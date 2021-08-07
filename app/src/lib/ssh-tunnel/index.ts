@@ -1,11 +1,11 @@
-import { default as RedirectionModel, RedirectionJson, State } from "./model";
+import { default as SshTunnelModel, SshTunnelJson, State } from "./model";
 export { State } from "./model";
 import Command from '../command';
 
-export default class Redirection extends RedirectionModel {
+export default class SshTunnel extends SshTunnelModel {
 	#command;
 
-	constructor(props: RedirectionJson = {}) {
+	constructor(props: SshTunnelJson = {}) {
 		super(props);
 
 		if (this.isStarted){
@@ -23,8 +23,8 @@ export default class Redirection extends RedirectionModel {
 		}
 	}
 
-	set(props: RedirectionJson) {
-		return new Redirection(super.set(props).json);
+	set(props: SshTunnelJson) {
+		return new SshTunnel(super.set(props).json);
 	}
 
 	async stop() {
