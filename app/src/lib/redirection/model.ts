@@ -30,6 +30,7 @@ export default class Redirection {
 
 	constructor(props: RedirectionJson) {
 		this.#props = { ...defaultRedirection, ...props };
+		Object.freeze(this.#props);
 	}
 
 	set(props: RedirectionJson) {
@@ -69,16 +70,7 @@ export default class Redirection {
 	}
 
 	get json(){
-		return {
-			label: this.label,
-			externalPort: this.externalPort,
-			internalPort: this.internalPort,
-			internalHost: this.internalHost,
-			targetHost: this.targetHost,
-			targetSshPort: this.targetSshPort,
-			user: this.user,
-			state: this.state
-		};
+		return this.#props;
 	}
 
 	get isStarted(){
@@ -87,5 +79,11 @@ export default class Redirection {
 
 	get isStopped(){
 		return this.#props.state === State.Stopped;
+	}
+
+	assertToBeStarted(){
+		if (this.isStopped){
+			throw new Error("Redirection is not started !");
+		}
 	}
 }
