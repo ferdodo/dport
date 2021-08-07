@@ -6,13 +6,13 @@
 		"distDir": "../dist"
 	},
 	"tauri":{
-    	"allowlist": {
-    		"all": false,
-    		"shell": {
-    			"execute": true
-    		}
-    	},
-    	"windows": [
+		"allowlist": {
+			"all": false,
+			"shell": {
+				"execute": true
+			}
+		},
+		"windows": [
 			{
 				"title": "dport",
 				"width": 800,
@@ -21,6 +21,6 @@
 				"fullscreen": false,
 				"decorations": false
 			}
-	    ]
+		]
 	}
 }
