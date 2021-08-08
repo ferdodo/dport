@@ -4,7 +4,11 @@
 
 GUI for SSH port forwarding.
 
-## Build with Node.js and Rust
+## Build on Windows
+
+    /!\ This is a work in progress /!\
+
+## Build on Linux
 
 Follow Tauri setup instructions to install Node.js and Rust.
 
@@ -23,7 +27,7 @@ Build the app (Choose any of the following)
     ./dport/app$ npm run build
     ./dport/app$ npm run build-debug-appimage
 
-## Build with Docker and Makefile
+## Build on Linux (using Docker)
 
 Install Docker and Makefile.
 
