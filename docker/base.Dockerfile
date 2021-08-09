@@ -3,7 +3,7 @@ from node
 
 # apt dependencies
 RUN apt-get update
-RUN apt-get install libwebkit2gtk-4.0-dev build-essential curl wget libssl-dev libgtk-3-dev squashfs-tools jq -y
+RUN apt-get install libwebkit2gtk-4.0-dev build-essential curl wget libssl-dev libgtk-3-dev squashfs-tools -y
 
 
 # Rust
