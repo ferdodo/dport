@@ -9,7 +9,8 @@
 		"build-debug-appimage": "tsc && webpack --mode development && tauri build --debug --bundle appimage",
 		"build": "tsc && webpack && tauri build",
 		"tauri": "tauri",
-		"jq": "./node_modules/node-jq/bin/jq"
+		"jq": "./node_modules/node-jq/bin/jq",
+		"jq-win": "node_modules\\node-jq\\bin\\jq.exe"
 	},
 	"repository": {
 		"type": "git",

@@ -13,17 +13,22 @@ build-debug-appimage: base
 	docker build -f build-debug-appimage.Dockerfile -t dport-build-debug-appimage ../app
 
 get_debug_app_image: build-debug-appimage
-	docker run --rm dport-build-debug-appimage cat /dport/app/src-tauri/target/debug/bundle/appimage/dport_0.5.0_amd64.AppImage > /tmp/dport-debug-0.5.0.AppImage
-	# Successfully built debug AppImage.
+	docker run --rm dport-build-debug-appimage cat /dport/dport.AppImage > /tmp/dport.AppImage
 
 get_app_image: build
-	docker run --rm dport-build cat /dport/app/src-tauri/target/release/bundle/appimage/dport_0.5.0_amd64.AppImage > /tmp/dport-0.5.0.AppImage
-	# Successfully built AppImage.
+	docker run --rm dport-build cat /dport/dport.AppImage > /tmp/dport.AppImage
 
 get_deb: build
-	docker run --rm dport-build cat /dport/app/src-tauri/target/release/bundle/deb/dport_0.5.0_amd64.deb > /tmp/dport-0.5.0.deb
-	# Successfully built deb package.
+	docker run --rm dport-build cat /dport/dport.deb > /tmp/dport.deb
 
 print_tauri_config:
 	docker run --rm dport-base cat /dport/app/src-tauri/tauri.conf.json
 	docker run --rm dport-base npm run tauri info
+
+exec: base
+	docker run --rm -ti dport-base /bin/bash
+
+clean:
+	-docker rmi dport-build
+	-docker rmi dport-build-debug-appimage
+	-dport-test

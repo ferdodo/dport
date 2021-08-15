@@ -1,0 +1,137 @@
+name: release-automation
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  # build-windows:
+  #   runs-on: windows-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+
+  #     - uses: actions/setup-node@v1
+  #       with:
+  #         node-version: 12.x
+
+  #     - name: install Rust stable
+  #       uses: actions-rs/toolchain@v1
+  #       with:
+  #         toolchain: stable
+
+  #     - name: install node_modules
+  #       working-directory: app
+  #       run: npm install
+
+  #     - name: setup tauri
+  #       working-directory: app
+  #       run: ./scripts/tauri-setup.bat
+      
+  #     - name: build app 
+  #       working-directory: app
+  #       run: npm run build
+
+  #     - name: Upload windows installer.
+  #       uses: actions/upload-artifact@v1
+  #       with:
+  #         name: windows-msi
+  #         path: app/src-tauri/target/release/bundle/msi/dport_${{ github.ref }}_x64.msi
+
+
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: get appimage
+        working-directory: docker
+        run: make get_app_image
+
+      - name: get deb 
+        working-directory: docker
+        run: make get_deb
+
+      - name: Upload deb
+        uses: actions/upload-artifact@v1
+        with:
+          name: linux-deb
+          path: /tmp/dport.deb
+
+      - name: Upload appimage
+        uses: actions/upload-artifact@v1
+        with:
+          name: linux-appimage
+          path: /tmp/dport.AppImage
+
+  do-release:
+    needs:
+      - build-linux
+      # - build-windows
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download deb
+        uses: actions/download-artifact@v1
+        with:
+          name: linux-deb
+
+      - name: Download appimage
+        uses: actions/download-artifact@v1
+        with:
+          name: linux-appimage
+
+      # - name: Download windows msi installer.
+        # uses: actions/download-artifact@v1
+        # with:
+          # name: windows-msi
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Extract tag name
+        id: tag
+        uses: actions/github-script@0.2.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            return context.payload.ref.replace(/\/refs\/tags\//, '');
+
+      - name: Upload linux deb
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: linux-deb/dport.deb
+          asset_name: dport-${{ github.ref }}.deb
+          asset_content_type: application/octet-stream
+
+      - name: Upload linux appimage
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: linux-appimage/dport.AppImage
+          asset_name: dport-${{ github.ref }}.AppImage
+          asset_content_type: application/octet-stream
+
+      # - name: Upload windows msi
+        # uses: actions/upload-release-asset@v1
+        # env:
+          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # with:
+          # upload_url: ${{ steps.create_release.outputs.upload_url }}
+          # asset_path: windows-msi.zip
+          # asset_name: dport-${{ github.ref }}-windows-msi.zip
+          # asset_content_type: application/zip

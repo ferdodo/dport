@@ -21,6 +21,14 @@
 				"fullscreen": false,
 				"decorations": false
 			}
-		]
+		],
+		"bundle": {
+			"identifier" : "io.github.ferdodo.dport",
+			"targets": [
+				"appimage",
+				"deb",
+				"msi"
+			]
+		}
 	}
 }
