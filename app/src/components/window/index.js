@@ -1,7 +1,7 @@
 import Vue from "vue";
 import template from "./template.html";
 import "./style.css";
-import { appWindow } from '@tauri-apps/api/window';
+import WindowHandle from '../../lib/window-handle';
 
 export default {
 	template,
@@ -9,13 +9,23 @@ export default {
 	props: {
 		title: String
 	},
+
+	data(){
+		const windowHandle = WindowHandle.getMainWindow();
+		return { windowHandle };
+	},
+
+	mounted(){
+		WindowHandle.makeDraggable(this.$refs.dportDraggableHandle)
+	},
 	
 	methods: {
 		minimize() {
-			appWindow.minimize();
+			this.windowHandle.minimize();
 		},
+
 		close() {
-			appWindow.close();
+			this.windowHandle.close();
 		}
 	}
 }

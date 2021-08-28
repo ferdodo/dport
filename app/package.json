@@ -2,12 +2,21 @@
 	"name": "dport",
 	"version": "0.5.0",
 	"description": "GUI for SSH port forwarding.",
-	"main": "src/electron-main/dist/main.js",
+	"main": "dist/main.js",
+	"build":{
+		"files": [
+			"./dist/**/*",
+			"./dist/main.js"
+	    ]
+	},
 	"scripts": {
 		"test": "echo no tests yet",
 		"build-types": "tsc --declaration --emitDeclarationOnly",
-		"build-debug-appimage": "tsc && webpack --mode development && tauri build --debug --bundle appimage",
-		"build": "tsc && webpack && tauri build",
+		"build-electron-main": "esbuild src/electron-main.js --bundle --platform=node --external:electron --outfile=dist/main.js",
+		"build-debug-electron": "tsc && webpack --mode development --env.BUNDLER=electron && electron-builder",
+		"build-debug-tauri": "tsc && webpack --mode development --env.BUNDLER=tauri && tauri build --debug --bundle appimage",
+		"build-electron": "tsc && webpack --env.BUNDLER=electron && electron-builder",
+		"build-tauri": "tsc && webpack --env.BUNDLER=tauri && tauri build",
 		"tauri": "tauri",
 		"jq": "./node_modules/node-jq/bin/jq",
 		"jq-win": "node_modules\\node-jq\\bin\\jq.exe"
@@ -22,6 +31,9 @@
 	"devDependencies": {
 		"@tauri-apps/cli": "^1.0.0-beta.6",
 		"css-loader": "^3.6.0",
+		"electron": "^13.2.1",
+		"electron-builder": "^22.11.7",
+		"esbuild": "^0.12.22",
 		"file-loader": "^6.0.0",
 		"html-webpack-plugin": "^4.3.0",
 		"node-jq": "^2.0.0",
@@ -35,6 +47,7 @@
 	"dependencies": {
 		"@tauri-apps/api": "^1.0.0-beta.5",
 		"98.css": "^0.1.16",
+		"uuid": "^3.4.0",
 		"vue": "^2.6.11"
 	}
 }

@@ -4,7 +4,7 @@ import "./style.css";
 import Gui from "./components/gui";
 import Window from "./components/window";
 
-var div = document.createElement("div");
+const div = document.createElement("div");
 div.id = "app";
 document.body.appendChild(div);
 
