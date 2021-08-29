@@ -1,8 +1,15 @@
-directories:
-  buildResources: dist
+files:
+  - ./dist/**/*
+  - ./dist/main.js
+
 linux:
   target:
     - AppImage
     - deb
-  artifactName: "${name}-${version}.${ext}"
+  artifactName: "${name}.${ext}"
   category: Utility
+
+win:
+  target:
+    - msi
+  artifactName: "${name}.${ext}"
