@@ -17,11 +17,9 @@ electron-build: electron-base
 
 electron-build-debug: electron-base
 	docker build -f electron-build-debug.Dockerfile -t dport-electron-build-debug ../app
-	docker system prune -f
 
 tauri-build-debug: tauri-base
 	docker build -f tauri-build-debug.Dockerfile -t dport-tauri-build-debug ../app
-	docker system prune -f
 
 tauri_get_debug_appimage: tauri-build-debug
 	docker run --rm dport-tauri-build-debug cat /dport/dport.AppImage > /tmp/dport.AppImage

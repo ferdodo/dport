@@ -1,5 +1,6 @@
 import { default as SshTunnelModel, SshTunnelJson, State } from "./model";
 export { State } from "./model";
+export { SshTunnelJson } from "./model";
 import Command from '../command';
 
 export default class SshTunnel extends SshTunnelModel {

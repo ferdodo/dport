@@ -1,4 +1,3 @@
-import Vue from "vue";
 import template from "./template.html";
 import "./style.css";
 import WindowHandle from '../../lib/window-handle';
