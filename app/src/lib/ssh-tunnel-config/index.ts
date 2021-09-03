@@ -33,8 +33,17 @@ export default class SshTunnelConfig {
 	}
 
 	static load(){
-		const config = dbGet("config") || [];
-		const sshTunnels = config.map(props => new SshTunnel(props));
+		const defaultConf = [
+			new SshTunnel(), 
+			new SshTunnel().set({ externalPort: 8081 })
+		];
+
+		const json = dbGet("config");
+
+		const sshTunnels = json 
+			? json.map(props => new SshTunnel(props)) 
+			: defaultConf;
+
 		return new SshTunnelConfig(sshTunnels);
 	}
 
