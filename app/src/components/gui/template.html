@@ -24,12 +24,12 @@
 			<td><span> server_ssh_port </span></td>
 			<td colspan="3"></td>
 		</tr>
-		<tr v-for="(sshTunnel, index) in sshTunnels">
+		<tr v-for="sshTunnel of config"j>
 			<td>
 				<input
 					:disabled="sshTunnel.isStarted"
 					:value="sshTunnel.label"
-					@change="update('label', index, $event.target.value)"
+					@change="update(sshTunnel, {label: $event.target.value})"
 					style="min-width: 6.3rem;"
 					type="text"
 					spellcheck="false"
@@ -39,7 +39,7 @@
 				<input
 					:disabled="sshTunnel.isStarted"
 					:value="sshTunnel.externalPort"
-					@change="update('externalPort', index, $event.target.value)"
+					@change="update(sshTunnel, {externalPort: $event.target.value})"
 					type="text"
 					spellcheck="false"
 				/>
@@ -48,7 +48,7 @@
 				<input
 					:disabled="sshTunnel.isStarted"
 					:value="sshTunnel.internalHost"
-					@change="update('internalHost', index, $event.target.value)"
+					@change="update(sshTunnel, {internalHost: $event.target.value})"
 					type="text"
 					spellcheck="false"
 				/>
@@ -57,7 +57,7 @@
 				<input
 					:disabled="sshTunnel.isStarted"
 					:value="sshTunnel.internalPort"
-					@change="update('internalPort', index, $event.target.value)"
+					@change="update(sshTunnel, {internalPort: $event.target.value})"
 					type="text"
 					spellcheck="false"
 				/>
@@ -66,7 +66,7 @@
 				<input
 					:disabled="sshTunnel.isStarted"
 					:value="sshTunnel.user"
-					@change="update('user', index, $event.target.value)"
+					@change="update(sshTunnel, {user: $event.target.value})"
 					type="text"
 					spellcheck="false"
 				/>
@@ -75,7 +75,7 @@
 				<input
 					:disabled="sshTunnel.isStarted"
 					:value="sshTunnel.targetHost"
-					@change="update('targetHost', index, $event.target.value)"
+					@change="update(sshTunnel, {targetHost: $event.target.value})"
 					type="text"
 					spellcheck="false"
 				/>
@@ -84,17 +84,17 @@
 				<input
 					:disabled="sshTunnel.isStarted"
 					:value="sshTunnel.targetSshPort"
-					@change="update('targetSshPort', index, $event.target.value)"
+					@change="update(sshTunnel, {targetSshPort: $event.target.value})"
 					type="text"
 					spellcheck="false"
 				/>
 			</td>
 			<td>
-				<button v-if="sshTunnel.isStarted" v-on:click="stop(index)">disable</button>
-				<button v-else :disabled="duplicatedExternalPorts" v-on:click="start(index)">enable</button>
+				<button v-if="sshTunnel.isStarted" v-on:click="stop(sshTunnel)">disable</button>
+				<button v-else :disabled="duplicatedExternalPorts" v-on:click="start(sshTunnel)">enable</button>
 			</td>
 			<td>
-				<button :disabled="sshTunnel.isStarted" v-on:click="remove(index)">remove</button>
+				<button :disabled="sshTunnel.isStarted" v-on:click="remove(sshTunnel)">remove</button>
 			</td>
 		</tr>
 		<tr>
