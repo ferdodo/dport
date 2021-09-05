@@ -32,12 +32,6 @@ export default {
 			this.config = this.config.remove(sshTunnel);
 		}
 	},
-	computed: {
-		duplicatedExternalPorts() {
-			const externalPorts = [...this.config].map((sshTunnel) => sshTunnel.externalPort);
-			return externalPorts.length != new Set(externalPorts).size;
-		}
-	},
 	watch: {
 		config() {
 			this.config.save();

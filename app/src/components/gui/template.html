@@ -91,7 +91,7 @@
 			</td>
 			<td>
 				<button v-if="sshTunnel.isStarted" v-on:click="stop(sshTunnel)">disable</button>
-				<button v-else :disabled="duplicatedExternalPorts" v-on:click="start(sshTunnel)">enable</button>
+				<button v-else :disabled="config.isUnstartable(sshTunnel)" v-on:click="start(sshTunnel)">enable</button>
 			</td>
 			<td>
 				<button :disabled="sshTunnel.isStarted" v-on:click="remove(sshTunnel)">remove</button>

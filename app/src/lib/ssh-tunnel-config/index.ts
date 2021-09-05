@@ -1,11 +1,10 @@
-import { default as SshTunnel, State } from "../ssh-tunnel";
+import SshTunnelConfigModel from "./model";
+import { default as SshTunnel } from "../ssh-tunnel";
 import { dbGet, dbSet } from "../nosql-db";
 
-export default class SshTunnelConfig {
-	#sshTunnels: SshTunnel[];
-
+export default class SshTunnelConfig extends SshTunnelConfigModel {
 	constructor(sshTunnels: Iterable<SshTunnel>){
-		this.#sshTunnels = [...sshTunnels];
+		super(sshTunnels);
 	}
 
 	add(sshTunnel: SshTunnel){
@@ -20,58 +19,27 @@ export default class SshTunnelConfig {
 		return new SshTunnelConfig(this.mutation_remove(sshTunnel));
 	}
 
-	get size(){
-		return this.#sshTunnels.length;
+	save(){	
+		dbSet("config", this.json);
 	}
 
-	save(){
-		const json = this.#sshTunnels
-			.map(sshTunnel => sshTunnel.set({ 'state': State.Stopped }))
-			.map(sshTunnel => sshTunnel.json);
+	isUnstartable(sshTunnel){
+		for (const s of this){
+			if (s.externalPort == sshTunnel.externalPort && s.isStarted){
+				return true;
+			}
+		}
 
-		dbSet("config", json);
+		return false;
 	}
 
 	static load(){
-		const defaultConf = [
-			new SshTunnel(), 
-			new SshTunnel().set({ externalPort: 8081 })
-		];
-
 		const json = dbGet("config");
 
 		const sshTunnels = json 
 			? json.map(props => new SshTunnel(props)) 
-			: defaultConf;
+			: this.defaultConf;
 
 		return new SshTunnelConfig(sshTunnels);
-	}
-
-	* [Symbol.iterator]() {
-		for (const s of this.#sshTunnels){
-			yield s;
-		}
-	}
-
-	private * mutation_add(sshTunnel): Iterable<SshTunnel> {
-		for (const s of this){
-			yield s;
-		}
-
-		yield sshTunnel;
-	}
-
-	private * mutation_update(old, replaced): Iterable<SshTunnel> {
-		for (const s of this){
-			yield old === s ? replaced : s;
-		}
-	}
-
-	private * mutation_remove(sshTunnel): Iterable<SshTunnel> {
-		for (const s of this){
-			if (s !== sshTunnel){
-				yield s;
-			}
-		}		
 	}
 }
