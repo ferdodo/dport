@@ -25,7 +25,7 @@ export default class SshTunnel extends SshTunnelModel {
 	}
 
 	set(props: SshTunnelJson) {
-		return new SshTunnel(super.set(props).json);
+		return new SshTunnel({ ...this.json, ...props });
 	}
 
 	async stop() {

@@ -69,7 +69,7 @@ export default class SshTunnel {
 		return this.#props.state;
 	}
 
-	get json(){
+	get json() : SshTunnelJson {
 		return this.#props;
 	}
 
