@@ -10,7 +10,7 @@ export default {
 	},
 
 	data(){
-		const windowHandle = WindowHandle.getMainWindow();
+		const windowHandle = new WindowHandle();
 		return { windowHandle };
 	},
 

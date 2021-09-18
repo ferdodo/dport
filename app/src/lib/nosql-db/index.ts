@@ -1,10 +1,10 @@
 
-export function dbGet(key){
+export function dbGet(key: string) {
 	const valueAsString = window.localStorage.getItem(key);
-	return JSON.parse(valueAsString);
+	return valueAsString ? JSON.parse(valueAsString) : null;
 }
 
-export function dbSet(key, value) {
+export function dbSet(key: string, value) {
 	const valueAsString = JSON.stringify(value);
 	window.localStorage.setItem(key, valueAsString);
 }

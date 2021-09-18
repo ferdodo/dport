@@ -6,7 +6,7 @@
 	"scripts": {
 		"test": "echo no tests yet",
 		"build-types": "tsc --declaration --emitDeclarationOnly",
-		"build-electron-main": "esbuild src/electron-main.js --bundle --platform=node --external:electron --outfile=dist/main.js",
+		"build-electron-main": "esbuild src/electron-main.ts --bundle --platform=node --external:electron --outfile=dist/main.js",
 		"build-debug-electron": "tsc && webpack --mode development --env.BUNDLER=electron && electron-builder --config electron-builder.yml",
 		"build-debug-tauri": "tsc && webpack --mode development --env.BUNDLER=tauri && tauri build --debug --bundle appimage",
 		"build-electron": "tsc && webpack --env.BUNDLER=electron && electron-builder --publish=never --config electron-builder.yml",

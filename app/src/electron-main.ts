@@ -4,7 +4,7 @@ import initIpc from './lib/command/electron-main';
 (async function main() {
 	app.allowRendererProcessReuse = false;
 	await appReady();
-	const win = await createWindow();
+	await createWindow();
 	initIpc();
 })();
 
@@ -14,7 +14,7 @@ function appReady() {
 
 		app.on("ready", function () {
 			clearTimeout(timeout);
-			resolve();
+			resolve(null);
 		});
 	});
 }
@@ -32,7 +32,6 @@ async function createWindow() {
 	});
 
 	win.setMenuBarVisibility(false);
-	win.rezisable = false;
 	await win.loadFile("dist/index.html");
 	return win;
 }

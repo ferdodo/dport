@@ -4,11 +4,8 @@ const nodeExternals = require("webpack-node-externals");
 const webpack = require('webpack');
 
 module.exports = function (env) {
-	const bundler = parseBundlerOption(env);
-
-	const target = bundler === "electron" 
-		? "electron-renderer" 
-		: "web";
+	const bundler = parseBundler(env);
+	const target = parseTarget(bundler);
 
 	return {
 		mode: "production",
@@ -58,7 +55,7 @@ function createExternals() {
 	return nodeExternals({ modulesDir, allowlist });
 }
 
-function parseBundlerOption (env) {
+function parseBundler (env) {
 	const { BUNDLER: bundler } = env;
 
 	switch(bundler){
@@ -71,5 +68,18 @@ function parseBundlerOption (env) {
 
 		default:
 			throw new Error('Bundler option has incorrect value !');
+	}
+}
+
+function parseTarget(bundler) {
+	switch (bundler) {
+		case 'tauri':
+			return "web";
+
+		case 'electron':
+			return "electron-renderer";
+
+		default:
+			throw new Error("Unknown bundler !");
 	}
 }
