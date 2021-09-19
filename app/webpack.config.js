@@ -21,7 +21,10 @@ module.exports = function (env) {
 				function (resource) {
 					resource.request = resource.request.replace(/BUNDLER/, `${bundler}`);
 				}
-			)
+			),
+			new webpack.DefinePlugin({
+				BUILD_INFO: `"This program was built at ${ new Date().toISOString() }."`
+			})
 		],
 		module: {
 			rules: [

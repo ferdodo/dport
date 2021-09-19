@@ -18,3 +18,5 @@ new Vue({
 
 	template: '<window title="dport"><gui></gui></window>'
 });
+
+console.log(BUILD_INFO);
