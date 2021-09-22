@@ -1,0 +1,17 @@
+name: test
+on: [push]
+
+jobs:
+  test-linux-tauri:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - working-directory: docker
+        run: make tauri-test
+
+  test-linux-electron:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - working-directory: docker
+        run: make electron-test
