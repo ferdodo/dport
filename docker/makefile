@@ -6,10 +6,15 @@ tauri-base:
 electron-base:
 	docker build -f electron-base.Dockerfile -t dport-electron-base ../app
 
-test: tauri-build tauri-build-debug electron-build electron-build-debug
+tauri-test: tauri-base
 	docker build -f tauri-test.Dockerfile -t dport-tauri-test ../app
 
-tauri-build: tauri-base
+electron-test: electron-base
+	docker build -f electron-test.Dockerfile -t dport-electron-test ../app
+
+test: electron-test tauri-test
+
+tauri-build: tauri-base 
 	docker build -f tauri-build.Dockerfile -t dport-tauri-build ../app
 
 electron-build: electron-base
@@ -21,33 +26,27 @@ electron-build-debug: electron-base
 tauri-build-debug: tauri-base
 	docker build -f tauri-build-debug.Dockerfile -t dport-tauri-build-debug ../app
 
-tauri_get_debug_appimage: tauri-build-debug
+tauri-get-debug-appimage: tauri-build-debug
 	docker run --rm dport-tauri-build-debug cat /dport/dport.AppImage > /tmp/dport.AppImage
 
-electron_get_debug_appimage: electron-build-debug
+electron-get-debug-appimage: electron-build-debug
 	docker run --rm dport-electron-build-debug cat /dport/dport.AppImage > /tmp/dport.AppImage
 
-tauri_get_appimage: tauri-build
+tauri-get-appimage: tauri-build
 	docker run --rm dport-tauri-build cat /dport/dport.AppImage > /tmp/dport.AppImage
 
-tauri_get_deb: tauri-build
+tauri-get-deb: tauri-build
 	docker run --rm dport-tauri-build cat /dport/dport.deb > /tmp/dport.deb
 
-electron_get_appimage: electron-build
+electron-get-appimage: electron-build
 	docker run --rm dport-electron-build cat /dport/dport.AppImage > /tmp/dport.AppImage
 
-electron_get_deb: electron-build
+electron-get-deb: electron-build
 	docker run --rm dport-electron-build cat /dport/dport.deb > /tmp/dport.deb
 
-tauri_print_config:
+tauri-print-config:
 	docker run --rm dport-tauri-base cat /dport/app/src-tauri/tauri.conf.json
 	docker run --rm dport-tauri-base npm run tauri info
-
-exec-tauri: tauri-base
-	docker run --rm -ti dport-tauri-base /bin/bash
-
-exec-electron: electron-base
-	docker run --rm -ti dport-electron-base /bin/bash
 
 clean:
 	-docker rmi dport-tauri-build-debug
@@ -55,5 +54,6 @@ clean:
 	-docker rmi dport-tauri-build
 	-docker rmi dport-electron-build
 	-docker rmi dport-tauri-test
+	-docker rmi dport-electron-test
 	-docker rmi dport-tauri-base
 	-docker rmi dport-electron-base
