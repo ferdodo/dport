@@ -15,7 +15,10 @@ module.exports = function (env) {
 			filename: "bundle.js"
 		},
 		plugins: [
-			new HtmlWebpackPlugin({ title: "dport" }),
+			new HtmlWebpackPlugin({ 
+				title: "dport",
+				templateContent: '<div id="app"></div>'
+			}),
 			new webpack.NormalModuleReplacementPlugin(
 				/(.*)BUNDLER(\.*)/,
 				function (resource) {
