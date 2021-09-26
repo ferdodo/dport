@@ -1,8 +1,18 @@
+import { mapActions, mapState } from 'vuex';
 import template from "./template.html";
-import script from "./script";
 import "./style.css";
 
 export default {
-	...script,
-	template
+	template,
+	computed: mapState('sshTunnelConfig', ['config']),
+
+	methods: mapActions('sshTunnelConfig', [
+		'add',
+		'remove',
+		'update',
+		'start',
+		'stop'
+	])
 };
+
+

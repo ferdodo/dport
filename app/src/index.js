@@ -3,13 +3,13 @@ import "../node_modules/98.css/dist/98.css";
 import "./style.css";
 import Gui from "./components/gui";
 import Window from "./components/window";
-
-const div = document.createElement("div");
-div.id = "app";
-document.body.appendChild(div);
+import store from "./store";
+import template from "./template.html";
 
 new Vue({
 	el: "#app",
+	template,
+	store,
 
 	components: {
 		Gui,
