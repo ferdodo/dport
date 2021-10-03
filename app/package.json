@@ -1,7 +1,7 @@
 {
 	"name": "dport",
 	"version": "0.5.0",
-	"description": "GUI for SSH port forwarding.",
+	"description": "GUI for SSH tunneling.",
 	"main": "dist/main.js",
 	"scripts": {
 		"test": "echo no tests yet",
