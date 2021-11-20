@@ -1,7 +1,7 @@
 {
 	"name": "dport",
 	"version": "0.5.0",
-	"description": "GUI for SSH port tunneling.",
+	"description": "GUI for SSH tunneling.",
 	"main": "main.js",
 	"repository": {
 		"type": "git",
