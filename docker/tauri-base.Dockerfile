@@ -1,9 +1,9 @@
-from node
+from node:lts
 
 
 # apt dependencies
 RUN apt-get update
-RUN apt-get install libwebkit2gtk-4.0-dev build-essential curl wget libssl-dev libgtk-3-dev squashfs-tools -y
+RUN apt-get install libwebkit2gtk-4.0-dev build-essential curl wget libssl-dev libgtk-3-dev squashfs-tools jq -y
 
 
 # Rust
@@ -13,21 +13,14 @@ RUN echo 'source /root/.cargo/env' >> $HOME/.bashrc
 RUN rustc --version
 
 
-# node_modules
-WORKDIR /dport/app
-COPY package.json .
-COPY npm-shrinkwrap.json .
+WORKDIR /dport
+COPY app/package.json /dport
+COPY app/npm-shrinkwrap.json /dport
 RUN npm install
 
-
-# tauri setup
-COPY scripts scripts
-COPY tauri.conf.json .
-COPY icon.png .
-RUN ./scripts/tauri-setup.sh --build-rust-cache
-
-
-# sources
-COPY src src
-COPY tsconfig.json .
-COPY webpack.config.js .
+COPY app /dport
+RUN ./scripts/copy-to-dist.sh
+RUN ./scripts/build-templates.sh
+RUN ./scripts/bundle-js.sh --bundler tauri
+RUN ./scripts/tauri-setup.sh
+RUN ./scripts/tauri-build.sh

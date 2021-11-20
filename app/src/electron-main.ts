@@ -32,6 +32,5 @@ async function createWindow() {
 	});
 
 	win.setMenuBarVisibility(false);
-	await win.loadFile("dist/index.html");
-	return win;
+	await win.loadFile("index.html");
 }

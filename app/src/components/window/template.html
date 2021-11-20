@@ -1,14 +1,7 @@
-<div class="window" style="height: calc(100% - 6px); display: flex; flex-direction: column;">
-	<div class="title-bar">
-		<div ref="dportDraggableHandle" class="title-bar-text">{{ title || '' }}</div>
-
-		<div class="title-bar-controls">
-			<button aria-label="Minimize" v-on:click="minimize"></button>
-			<button aria-label="Close" v-on:click="close"></button>
-		</div>
-	</div>
-
-	<div style="flex-grow: 1; overflow-y: auto;">
-		<slot></slot>
-	</div>
-</div>
+<dport-window
+	:title="title"
+	handle-id="dport-draggable-handle"
+	@minimize="minimize"
+	@close="close">
+	<slot></slot>
+</dport-window>

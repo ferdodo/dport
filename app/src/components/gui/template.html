@@ -2,16 +2,16 @@
 	<table>
 		<tr>
 			<td colspan="7">
-				<p><b>SSH tunneling</b></p>
+				<dport-p><b>SSH tunneling</b></dport-p>
 
-				<p>
+				<dport-p>
 					Enabled lines will execute the following command: &emsp;
-					<code class="sample-command">
+					<code style="white-space: nowrap;">
 						ssh&nbsp;-p&nbsp;&#60;server_ssh_port&#62;&nbsp;-L&nbsp;&#60;local_port&#62;:&#60;remote_address&#62;:&#60;remote_port&#62;&nbsp;&#60;user&#62;@&#60;server&#62;
 					</code>
-				</p>
+				</dport-p>
 
-				<p>See ssh documentation for more informations.</p>
+				<dport-p>See ssh documentation for more informations.</dport-p>
 			</td>
 		</tr>
 		<tr style="font-weight: 800;">
@@ -24,82 +24,25 @@
 			<td><span> server_ssh_port </span></td>
 			<td colspan="3"></td>
 		</tr>
-		<tr v-for="sshTunnel of config">
+		<tr v-for="s of config">
+			<td><dport-input :disabled="s.isStarted" :value="s.label" @change="update({s, props: {label: $event.target.value}})" style="min-width: 6.3rem;"/></td>
+			<td><dport-input :disabled="s.isStarted" :value="s.externalPort" @change="update({s, props: {externalPort: $event.target.value}})"/></td>
+			<td><dport-input :disabled="s.isStarted" :value="s.internalHost" @change="update({s, props: {internalHost: $event.target.value}})"/></td>
+			<td><dport-input :disabled="s.isStarted" :value="s.internalPort" @change="update({s, props: {internalPort: $event.target.value}})"/></td>
+			<td><dport-input :disabled="s.isStarted" :value="s.user" @change="update({s, props: {user: $event.target.value}})"/></td>
+			<td><dport-input :disabled="s.isStarted" :value="s.targetHost" @change="update({s, props: {targetHost: $event.target.value}})"/></td>
+			<td><dport-input :disabled="s.isStarted" :value="s.targetSshPort" @change="update({s, props: {targetSshPort: $event.target.value}})"/></td>
 			<td>
-				<input
-					:disabled="sshTunnel.isStarted"
-					:value="sshTunnel.label"
-					@change="update({sshTunnel, props: {label: $event.target.value}})"
-					style="min-width: 6.3rem;"
-					type="text"
-					spellcheck="false"
-				/>
+				<dport-button v-if="s.isStarted" v-on:click="stop(s)">disable</dport-button>
+				<dport-button v-else :disabled="config.isUnstartable(s)" v-on:click="start(s)">enable</dport-button>
 			</td>
 			<td>
-				<input
-					:disabled="sshTunnel.isStarted"
-					:value="sshTunnel.externalPort"
-					@change="update({sshTunnel, props: {externalPort: $event.target.value}})"
-					type="text"
-					spellcheck="false"
-				/>
-			</td>
-			<td>
-				<input
-					:disabled="sshTunnel.isStarted"
-					:value="sshTunnel.internalHost"
-					@change="update({sshTunnel, props: {internalHost: $event.target.value}})"
-					type="text"
-					spellcheck="false"
-				/>
-			</td>
-			<td>
-				<input
-					:disabled="sshTunnel.isStarted"
-					:value="sshTunnel.internalPort"
-					@change="update({sshTunnel, props: {internalPort: $event.target.value}})"
-					type="text"
-					spellcheck="false"
-				/>
-			</td>
-			<td>
-				<input
-					:disabled="sshTunnel.isStarted"
-					:value="sshTunnel.user"
-					@change="update({sshTunnel, props: {user: $event.target.value}})"
-					type="text"
-					spellcheck="false"
-				/>
-			</td>
-			<td>
-				<input
-					:disabled="sshTunnel.isStarted"
-					:value="sshTunnel.targetHost"
-					@change="update({sshTunnel, props: {targetHost: $event.target.value}})"
-					type="text"
-					spellcheck="false"
-				/>
-			</td>
-			<td>
-				<input
-					:disabled="sshTunnel.isStarted"
-					:value="sshTunnel.targetSshPort"
-					@change="update({sshTunnel, props: {targetSshPort: $event.target.value}})"
-					type="text"
-					spellcheck="false"
-				/>
-			</td>
-			<td>
-				<button v-if="sshTunnel.isStarted" v-on:click="stop(sshTunnel)">disable</button>
-				<button v-else :disabled="config.isUnstartable(sshTunnel)" v-on:click="start(sshTunnel)">enable</button>
-			</td>
-			<td>
-				<button :disabled="sshTunnel.isStarted" v-on:click="remove(sshTunnel)">remove</button>
+				<dport-button :disabled="s.isStarted" v-on:click="remove(s)">remove</dport-button>
 			</td>
 		</tr>
 		<tr>
 			<td colspan="7"></td>
-			<td><button v-on:click="add">add</button></td>
+			<td><dport-button v-on:click="add">add</dport-button></td>
 		</tr>
 	</table>
 </div>

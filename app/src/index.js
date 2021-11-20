@@ -1,10 +1,10 @@
-import Vue from "vue";
-import "98.css";
-import "./style.css";
+import Vue from "vue/dist/vue.common.js";
 import Gui from "./components/gui";
 import Window from "./components/window";
 import store from "./store";
-import template from "./template.html";
+import template from "./template";
+import registerComponents from "./design-system/register-components";
+registerComponents();
 
 new Vue({
 	el: "#app",
@@ -16,5 +16,3 @@ new Vue({
 		Window
 	}
 });
-
-console.log(BUILD_INFO);

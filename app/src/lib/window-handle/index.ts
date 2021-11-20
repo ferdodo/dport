@@ -8,4 +8,4 @@ export interface WindowHandleInstance {
 	close(): void
 }
 
-export { default } from "./resolve-module";
+export { default } from "./__BUNDLER__";

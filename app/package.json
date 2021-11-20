@@ -1,20 +1,8 @@
 {
 	"name": "dport",
 	"version": "0.5.0",
-	"description": "GUI for SSH port forwarding.",
-	"main": "dist/main.js",
-	"scripts": {
-		"test": "echo no tests yet",
-		"build-types": "tsc --declaration --emitDeclarationOnly",
-		"build-electron-main": "esbuild src/electron-main.ts --bundle --platform=node --external:electron --outfile=dist/main.js",
-		"build-debug-electron": "tsc && webpack --mode development --env.BUNDLER=electron && electron-builder --config electron-builder.yml",
-		"build-debug-tauri": "tsc && webpack --mode development --env.BUNDLER=tauri && tauri build --debug --bundle appimage",
-		"build-electron": "tsc && webpack --env.BUNDLER=electron && electron-builder --publish=never --config electron-builder.yml",
-		"build-tauri": "tsc && webpack --env.BUNDLER=tauri && tauri build",
-		"tauri": "tauri",
-		"jq": "./node_modules/node-jq/bin/jq",
-		"jq-win": "node_modules\\node-jq\\bin\\jq.exe"
-	},
+	"description": "GUI for SSH port tunneling.",
+	"main": "main.js",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/ferdodo/dport"
@@ -24,19 +12,10 @@
 	"license": "MIT",
 	"devDependencies": {
 		"@tauri-apps/cli": "^1.0.0-beta.6",
-		"css-loader": "^3.6.0",
 		"electron": "^13.2.1",
 		"electron-builder": "^22.11.7",
 		"esbuild": "^0.12.22",
-		"file-loader": "^6.0.0",
-		"html-webpack-plugin": "^4.3.0",
-		"node-jq": "^2.0.0",
-		"raw-loader": "^4.0.1",
-		"style-loader": "^1.2.1",
-		"typescript": "^4.4.2",
-		"webpack": "^4.43.0",
-		"webpack-cli": "^3.3.12",
-		"webpack-node-externals": "^2.5.0"
+		"typescript": "^4.4.2"
 	},
 	"dependencies": {
 		"@tauri-apps/api": "^1.0.0-beta.5",

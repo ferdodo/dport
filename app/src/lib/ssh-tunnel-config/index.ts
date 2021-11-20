@@ -3,10 +3,6 @@ import { default as SshTunnel } from "../ssh-tunnel";
 import { dbGet, dbSet } from "../nosql-db";
 
 export default class SshTunnelConfig extends SshTunnelConfigModel {
-	constructor(sshTunnels: Iterable<SshTunnel>){
-		super(sshTunnels);
-	}
-
 	add(sshTunnel: SshTunnel){
 		return new SshTunnelConfig(this.mutation_add(sshTunnel));
 	}

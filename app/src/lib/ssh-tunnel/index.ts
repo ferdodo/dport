@@ -29,13 +29,11 @@ export default class SshTunnel extends SshTunnelModel {
 	}
 
 	async stop() {
-		this.assertToBeStarted();
 		await this.#command.kill();
 		return this.set({ state: State.Stopped });
 	}
 
 	async waitEnd() {
-		this.assertToBeStarted();
 		await this.#command.waitEnd();
 		return this.set({ state: State.Stopped });
 	}

@@ -7,4 +7,4 @@ export interface CommandInstance {
 	waitEnd(): Promise<void>;
 };
 
-export { default } from "./resolve-module";
+export { default } from "./__BUNDLER__";

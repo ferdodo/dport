@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import Vue from 'vue/dist/vue.common.js';
 import Vuex from 'vuex';
 import sshTunnelConfig from "./ssh-tunnel-config";
 

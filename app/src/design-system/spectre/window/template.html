@@ -1,0 +1,26 @@
+<link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+<link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+
+<div style="height: calc(100% - 6px); display: flex; flex-direction: column;">
+	<div class="card">
+		<div class="card-body">	
+			<div style="display: flex; flex-direction: row;">
+				<div id="handle" style="flex-grow: 1; line-height: 0.9rem;"></div>
+
+				<div>
+					<button id="minimize" aria-label="Minimize" class="btn btn-action">
+						<i class="icon icon-minus"></i>
+					</button>
+
+					<button id="close" aria-label="Close" class="btn btn-action">
+						<i class="icon icon-cross"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div style="flex-grow: 1; overflow-y: auto;">
+		<slot></slot>
+	</div>
+</div>

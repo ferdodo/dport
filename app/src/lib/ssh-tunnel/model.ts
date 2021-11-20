@@ -80,10 +80,4 @@ export default class SshTunnel {
 	get isStopped(){
 		return this.#props.state === State.Stopped;
 	}
-
-	assertToBeStarted(){
-		if (this.isStopped){
-			throw new Error("SshTunnel is not started !");
-		}
-	}
 }

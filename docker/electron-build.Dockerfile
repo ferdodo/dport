@@ -1,5 +1,10 @@
 from dport-electron-base
-RUN npm run build-electron-main
-RUN npm run build-electron
-RUN cp /dport/dist/dport.AppImage /dport/dport.AppImage
-RUN cp /dport/dist/dport.deb /dport/dport.deb
+COPY app /dport
+WORKDIR /dport
+RUN ./scripts/copy-to-dist.sh
+RUN ./scripts/build-templates.sh
+RUN ./scripts/bundle-js.sh --bundler electron
+RUN ./scripts/build-main.sh
+RUN ./scripts/build-electron.sh
+RUN cp /dport/electron-dist/dport.AppImage /dport/dport.AppImage
+RUN cp /dport/electron-dist/dport.deb /dport/dport.deb

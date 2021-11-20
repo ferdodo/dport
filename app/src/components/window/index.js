@@ -1,5 +1,4 @@
-import template from "./template.html";
-import "./style.css";
+import template from "./template";
 import WindowHandle from '../../lib/window-handle';
 
 export default {
@@ -9,13 +8,15 @@ export default {
 		title: String
 	},
 
-	data(){
+	data() {
 		const windowHandle = new WindowHandle();
 		return { windowHandle };
 	},
 
-	mounted(){
-		WindowHandle.makeDraggable(this.$refs.dportDraggableHandle)
+	mounted() {
+		const dportWindow = window.document.querySelector('dport-window');
+		const windowTitleBar = dportWindow.shadowRoot.querySelector('#dport-draggable-handle');
+		WindowHandle.makeDraggable(windowTitleBar);
 	},
 	
 	methods: {
