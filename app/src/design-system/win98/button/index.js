@@ -19,8 +19,8 @@ export default class Win98Button extends HTMLElement {
 		}
 	}
 
-	attributeChangedCallback(name, oldValue, newValue){
-		if (this.button){		
+	attributeChangedCallback(name, oldValue, newValue) {
+		if (this.button) {
 			if (newValue){
 				this.button.setAttribute(name, newValue);
 			} else {

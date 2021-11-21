@@ -24,6 +24,25 @@ while [[ $# -gt 0 ]]; do
 			shift
 			shift
 			;;
+		--design-system)
+			value="$2"
+
+			case $value in
+				win98)
+					DESIGN_SYSTEM=win98
+					;;
+				spectre)
+					DESIGN_SYSTEM=spectre
+					;;
+				*)
+					echo "Error: unknown design system !"
+					exit -1
+					;;
+			esac
+
+			shift
+			shift
+			;;
 	esac
 done
 
@@ -32,20 +51,31 @@ if test -z "$BUNDLER"; then
 	exit -1
 fi
 
+if test -z "$DESIGN_SYSTEM"; then
+	echo "Error: design system must be specified with the --design-system option !"
+	exit -1
+fi
+
 function find-files-to-replace {
 	grep -rl \
 		--exclude-dir=node_modules \
 		--exclude-dir=src-tauri \
-		__BUNDLER__
+		--exclude=*.sh \
+		$1
 }
 
 function replace-expression {
 	sed -i -E "s/$2/$3/g" $1
 }
 
-for file in `find-files-to-replace`; do
+for file in `find-files-to-replace __BUNDLER__`; do
 	replace-expression $file __BUNDLER__ "$BUNDLER"
 	echo "Replacing __BUNDLER__ for $file"
+done
+
+for file in `find-files-to-replace __DESIGN_SYSTEM__`; do
+	replace-expression $file __DESIGN_SYSTEM__	"$DESIGN_SYSTEM"
+	echo "Replacing __DESIGN_SYSTEM__ for $file"
 done
 
 npx --no-install esbuild --bundle src/index.js \

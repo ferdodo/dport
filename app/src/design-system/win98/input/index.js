@@ -26,9 +26,9 @@ export default class Win98Input extends HTMLElement {
 		});
 	}
 
-	attributeChangedCallback(name, oldValue, newValue){
-		if (this.input){		
-			if (newValue){
+	attributeChangedCallback(name, oldValue, newValue) {
+		if (this.input) {
+			if (newValue) {
 				this.input.setAttribute(name, newValue);
 			} else {
 				this.input.removeAttribute(name);

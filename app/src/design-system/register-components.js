@@ -1,7 +1,7 @@
-import Input from './win-98/input';
-import Button from './win-98/button';
-import P from './win-98/p';
-import Window from './win-98/window';
+import Input from './__DESIGN_SYSTEM__/input';
+import Button from './__DESIGN_SYSTEM__/button';
+import P from './__DESIGN_SYSTEM__/p';
+import Window from './__DESIGN_SYSTEM__/window';
 
 export default function registerComponents() {
 	customElements.define('dport-input', Input);

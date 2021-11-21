@@ -19,14 +19,14 @@ export default class Win98Window extends HTMLElement {
 		this.attachShadow({ mode: 'open' });
 		this.shadowRoot.appendChild(templateNode.content.cloneNode(true));
 		const title = this.getAttribute('title');
-		
-		if (title){
+
+		if (title) {
 			this.handle.innerHTML = title;
 		}
 
 		const handleId = this.getAttribute('handle-id');
 
-		if (handleId){
+		if (handleId) {
 			this.handle.id = handleId;
 		}
 
