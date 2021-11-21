@@ -3,6 +3,11 @@ import { default as SshTunnel } from "../ssh-tunnel";
 import { dbGet, dbSet } from "../nosql-db";
 
 export default class SshTunnelConfig extends SshTunnelConfigModel {
+	constructor(sshTunnels){
+		super(sshTunnels);
+		dbSet("config", this.json);
+	}
+
 	add(sshTunnel: SshTunnel){
 		return new SshTunnelConfig(this.mutation_add(sshTunnel));
 	}
@@ -13,10 +18,6 @@ export default class SshTunnelConfig extends SshTunnelConfigModel {
 
 	remove(sshTunnel: SshTunnel){
 		return new SshTunnelConfig(this.mutation_remove(sshTunnel));
-	}
-
-	save(){	
-		dbSet("config", this.json);
 	}
 
 	isUnstartable(sshTunnel){
