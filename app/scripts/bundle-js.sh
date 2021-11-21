@@ -33,15 +33,19 @@ if test -z "$BUNDLER"; then
 fi
 
 function find-files-to-replace {
-	grep -rl --exclude-dir=node_modules __BUNDLER__
+	grep -rl \
+		--exclude-dir=node_modules \
+		--exclude-dir=src-tauri \
+		__BUNDLER__
 }
 
 function replace-expression {
 	sed -i -E "s/$2/$3/g" $1
 }
 
-for mr in `find-files-to-replace`; do
-	replace-expression $mr __BUNDLER__ "$BUNDLER"
+for file in `find-files-to-replace`; do
+	replace-expression $file __BUNDLER__ "$BUNDLER"
+	echo "Replacing __BUNDLER__ for $file"
 done
 
 npx --no-install esbuild --bundle src/index.js \
