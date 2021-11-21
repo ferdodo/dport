@@ -1,19 +1,20 @@
 import { ipcRenderer } from "electron";
-import { v4 as createUuid } from 'uuid';
 import { CommandClass, CommandInstance } from "./index";
 
+let idSeed = 0;
+
 const Command: CommandClass = class implements CommandInstance {
-	#uuid;
+	#id;
 	#ipc;
 
 	constructor(command: string, args: string[]){
-		const uuid = createUuid();
-		this.#uuid = uuid;
-		this.#ipc = ipcRenderer.invoke("command", { uuid, command, args });
+		this.#id = idSeed;
+		idSeed++;
+		this.#ipc = ipcRenderer.invoke("command", { id: this.#id, command, args });
 	}
 
 	async kill() {
-		await ipcRenderer.invoke("commandKill", { uuid: this.#uuid });
+		await ipcRenderer.invoke("commandKill", { id: this.#id });
 	}
 
 	async waitEnd() {

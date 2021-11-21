@@ -8,23 +8,23 @@ export default function initIpc(){
 }
 
 interface handleCommandPayload { 
-	uuid: string;
+	id: string;
 	command: string;
 	args: string[];
 };
 
-async function handleCommand(_, { uuid, command, args }: handleCommandPayload){
+async function handleCommand(_, { id, command, args }: handleCommandPayload){
 	const commandHandle = spawn(command, args);
-	commandHandles.set(uuid, commandHandle);
+	commandHandles.set(id, commandHandle);
 
 	await new Promise(resolve => {
 		commandHandle.on('close', () => resolve(null));
 	});
 
-	commandHandles.delete(uuid);
+	commandHandles.delete(id);
 }
 
-function handleCommandKill(_, { uuid }){
-	const command = commandHandles.get(uuid);
+function handleCommandKill(_, { id }){
+	const command = commandHandles.get(id);
 	command.kill();
 }
