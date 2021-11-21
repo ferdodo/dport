@@ -23,8 +23,6 @@ electron-build:
 	docker build -f electron-build.Dockerfile -t dport-electron-build ..
 	docker run --rm dport-electron-build cat /dport/dport.AppImage > /tmp/dport.AppImage
 	docker run --rm dport-electron-build cat /dport/dport.deb > /tmp/dport.deb
-	docker system prune -f
-
 
 clean:
 	-docker rmi dport-electron-base
