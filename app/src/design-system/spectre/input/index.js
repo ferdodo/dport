@@ -19,6 +19,14 @@ export default class Win98Input extends HTMLElement {
 			const value = this.getAttribute(attribute);
 			this.attributeChangedCallback(attribute, null, value);
 		}
+
+		this.input.addEventListener('change', e => {
+			const event = new CustomEvent('change', {
+				detail: e.target.value
+			});
+
+			this.dispatchEvent(event);
+		});
 	}
 
 	attributeChangedCallback(name, oldValue, newValue){

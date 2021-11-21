@@ -25,13 +25,13 @@
 			<td colspan="3"></td>
 		</tr>
 		<tr v-for="s of config">
-			<td><dport-input :disabled="s.isStarted" :value="s.label" @change="update({s, props: {label: $event.target.value}})" style="min-width: 6.3rem;"/></td>
-			<td><dport-input :disabled="s.isStarted" :value="s.externalPort" @change="update({s, props: {externalPort: $event.target.value}})"/></td>
-			<td><dport-input :disabled="s.isStarted" :value="s.internalHost" @change="update({s, props: {internalHost: $event.target.value}})"/></td>
-			<td><dport-input :disabled="s.isStarted" :value="s.internalPort" @change="update({s, props: {internalPort: $event.target.value}})"/></td>
-			<td><dport-input :disabled="s.isStarted" :value="s.user" @change="update({s, props: {user: $event.target.value}})"/></td>
-			<td><dport-input :disabled="s.isStarted" :value="s.targetHost" @change="update({s, props: {targetHost: $event.target.value}})"/></td>
-			<td><dport-input :disabled="s.isStarted" :value="s.targetSshPort" @change="update({s, props: {targetSshPort: $event.target.value}})"/></td>
+			<td><dport-input :disabled="s.isStarted" :value="s.label" @change="update({sshTunnel: s, props: {label: $event.detail}})" style="min-width: 6.3rem;"/></td>
+			<td><dport-input :disabled="s.isStarted" :value="s.externalPort" @change="update({sshTunnel: s, props: {externalPort: $event.detail}})"/></td>
+			<td><dport-input :disabled="s.isStarted" :value="s.internalHost" @change="update({sshTunnel: s, props: {internalHost: $event.detail}})"/></td>
+			<td><dport-input :disabled="s.isStarted" :value="s.internalPort" @change="update({sshTunnel: s, props: {internalPort: $event.detail}})"/></td>
+			<td><dport-input :disabled="s.isStarted" :value="s.user" @change="update({sshTunnel: s, props: {user: $event.detail}})"/></td>
+			<td><dport-input :disabled="s.isStarted" :value="s.targetHost" @change="update({sshTunnel: s, props: {targetHost: $event.detail}})"/></td>
+			<td><dport-input :disabled="s.isStarted" :value="s.targetSshPort" @change="update({sshTunnel: s, props: {targetSshPort: $event.detail}})"/></td>
 			<td>
 				<dport-button v-if="s.isStarted" v-on:click="stop(s)">disable</dport-button>
 				<dport-button v-else :disabled="config.isUnstartable(s)" v-on:click="start(s)">enable</dport-button>
