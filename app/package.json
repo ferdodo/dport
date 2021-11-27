@@ -21,6 +21,7 @@
 		"@tauri-apps/api": "^1.0.0-beta.5",
 		"98.css": "^0.1.16",
 		"spectre.css": "^0.5.9",
+		"tailwindcss": "^2.2.19",
 		"vue": "^2.6.11",
 		"vuex": "^3.6.2"
 	}
