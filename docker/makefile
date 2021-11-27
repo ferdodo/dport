@@ -6,6 +6,9 @@ tauri-base:
 electron-base:
 	docker build -f electron-base.Dockerfile -t dport-electron-base ..
 
+web-base:
+	docker build -f web-base.Dockerfile -t dport-web-base ..
+
 tauri-test:
 	docker build -f tauri-test.Dockerfile -t dport-tauri-test ..
 
@@ -23,6 +26,12 @@ electron-build:
 	docker build -f electron-build.Dockerfile -t dport-electron-build ..
 	docker run --rm dport-electron-build cat /dport/dport.AppImage > /tmp/dport.AppImage
 	docker run --rm dport-electron-build cat /dport/dport.deb > /tmp/dport.deb
+
+web-build:
+	docker build -f web-build.Dockerfile -t dport-web-build ..
+	-docker stop -t 1 dport-web
+	-docker rm dport-web
+	docker run --name dport-web -d -p 8080:8080 dport-web-build
 
 clean:
 	-docker rmi dport-electron-base

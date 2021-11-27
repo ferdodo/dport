@@ -15,6 +15,9 @@ while [[ $# -gt 0 ]]; do
 				electron)
 					BUNDLER=electron
 					;;
+				web)
+					BUNDLER=web
+					;;
 				*)
 					echo "Error: unknown bundler !"
 					exit -1
