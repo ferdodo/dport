@@ -1,14 +1,12 @@
 import { CommandClass, CommandInstance } from "./index";
 
 const Command: CommandClass = class implements CommandInstance {
-	constructor(command: string, args: string[]){
+	async kill() {
+		await Promise.resolve();
 	}
 
-	kill() {
-	}
-
-	waitEnd() {
-		return new Promise(()=>{});
+	async waitEnd() {
+		await new Promise(r => setTimeout(r, 1000000000));
 	}
 }
 
