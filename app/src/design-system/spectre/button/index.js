@@ -14,7 +14,6 @@ export default class Win98Button extends HTMLElement {
 	connectedCallback() {
 		this.attachShadow({ mode: 'open' });
 		this.shadowRoot.appendChild(templateNode.content.cloneNode(true));
-		this.button.innerHTML = this.innerHTML;
 
 		for (const attribute of Win98Button.observedAttributes){
 			const value = this.getAttribute(attribute);
