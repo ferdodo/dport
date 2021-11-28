@@ -68,17 +68,16 @@ function find-files-to-replace {
 }
 
 function replace-expression {
+	echo "Replacing $2 for $1"
 	sed -i -E "s/$2/$3/g" $1
 }
 
 for file in `find-files-to-replace __BUNDLER__`; do
 	replace-expression $file __BUNDLER__ "$BUNDLER"
-	echo "Replacing __BUNDLER__ for $file"
 done
 
 for file in `find-files-to-replace __DESIGN_SYSTEM__`; do
 	replace-expression $file __DESIGN_SYSTEM__	"$DESIGN_SYSTEM"
-	echo "Replacing __DESIGN_SYSTEM__ for $file"
 done
 
 npx --no-install esbuild --bundle src/index.js \
