@@ -1,41 +1,58 @@
-import SshTunnelConfigModel from "./model";
-import { default as SshTunnel } from "../ssh-tunnel";
+import { default as SshTunnel, State  } from "../ssh-tunnel";
 import { dbGet, dbSet } from "../nosql-db";
 
-export default class SshTunnelConfig extends SshTunnelConfigModel {
-	constructor(sshTunnels){
-		super(sshTunnels);
+export default class SshTunnelConfig {
+	#sshTunnels: SshTunnel[];
+
+	constructor(sshTunnels: Iterable<SshTunnel>){
+		this.#sshTunnels = [...sshTunnels];
 		dbSet("config", this.json);
+		Object.freeze(this);
+	}
+
+	get size(){
+		return this.#sshTunnels.length;
+	}
+
+	get json(){
+		return this.#sshTunnels
+			.map(sshTunnel => sshTunnel.set({ 'state': State.Stopped }))
+			.map(sshTunnel => sshTunnel.json);
+	}
+
+	* [Symbol.iterator]() {
+		for (const s of this.#sshTunnels){
+			yield s;
+		}
 	}
 
 	add(sshTunnel: SshTunnel){
-		return new SshTunnelConfig(this.mutation_add(sshTunnel));
+		return new SshTunnelConfig(this.#sshTunnels.concat(sshTunnel));
 	}
 
-	update(old: SshTunnel, replaced: SshTunnel){
-		return new SshTunnelConfig(this.mutation_update(old, replaced));
+	update(old: SshTunnel, substitute: SshTunnel){
+		return new SshTunnelConfig(this.#sshTunnels.map(s => s === old ? substitute : s));
 	}
 
 	remove(sshTunnel: SshTunnel){
-		return new SshTunnelConfig(this.mutation_remove(sshTunnel));
+		return new SshTunnelConfig(this.#sshTunnels.filter(s => s !== sshTunnel));
 	}
 
 	isUnstartable(sshTunnel){
-		for (const s of this){
-			if (s.externalPort == sshTunnel.externalPort && s.isStarted){
-				return true;
-			}
-		}
-
-		return false;
+		this.#sshTunnels.some(s => s.externalPort == sshTunnel.externalPort && s.isStarted);
 	}
 
 	static load(){
 		const json = dbGet("config");
 
+		const defaultConf = [
+			new SshTunnel(),
+			new SshTunnel().set({ externalPort: 8081 })
+		];
+
 		const sshTunnels = json 
 			? json.map(props => new SshTunnel(props)) 
-			: this.defaultConf;
+			: defaultConf;
 
 		return new SshTunnelConfig(sshTunnels);
 	}

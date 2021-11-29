@@ -1,16 +1,44 @@
-import { default as SshTunnelModel, SshTunnelJson, State } from "./model";
-export { State } from "./model";
-export { SshTunnelJson } from "./model";
 import Command from '../command';
 
-export default class SshTunnel extends SshTunnelModel {
-	#command;
+export enum State {
+	Started,
+	Stopped
+};
 
-	constructor(props: SshTunnelJson = {}) {
-		super(props);
+export interface SshTunnelJson {
+	label?: string;
+	externalPort?: number;
+	internalPort?: number;
+	internalHost?: string;
+	targetHost?: string;
+	targetSshPort?: string;
+	user?: string;
+	state?: State;
+};
+
+export default class SshTunnel {
+	#command;
+	label: string;
+	externalPort: number;
+	internalPort: number;
+	internalHost: string;
+	targetHost: string;
+	targetSshPort: string;
+	user: string;
+	state: State;
+
+	constructor(s: SshTunnelJson = {}) {
+		this.label = s.label ?? "My port forward";
+		this.externalPort = s.externalPort ?? 8080;
+		this.internalPort = s.internalPort ?? 8080;
+		this.internalHost = s.internalHost ?? "localhost";
+		this.targetHost = s.targetHost ?? "192.168.1.1";
+		this.targetSshPort = s.targetSshPort ?? "22";
+		this.user = s.user ?? "user";
+		this.state = s.state ?? State.Stopped;
 
 		if (this.isStarted){
-			const args = [
+			this.#command = new Command('ssh', [
 				"-p",
 				`${this.targetSshPort}`,
 				"-L",
@@ -18,10 +46,27 @@ export default class SshTunnel extends SshTunnelModel {
 				`${this.user}@${this.targetHost}`,
 				"sleep",
 				"infinity"
-			];
-
-			this.#command = new Command('ssh', args);
+			]);
 		}
+
+		Object.freeze(this);
+	}
+
+	get json(){
+		return {
+			label: this.label,
+			externalPort: this.externalPort,
+			internalPort: this.internalPort,
+			internalHost: this.internalHost,
+			targetHost: this.targetHost,
+			targetSshPort: this.targetSshPort,
+			user: this.user,
+			state: this.state
+		};
+	}
+
+	get isStarted(){
+		return this.state === State.Started;
 	}
 
 	set(props: SshTunnelJson) {
