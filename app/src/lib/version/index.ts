@@ -1,5 +1,3 @@
-export type getVersionFn = () => Promise<string>;
-
 export async function getVersion() : Promise<string> {
 	try {
 		const response = await fetch("/version", { cache: "no-cache"});
