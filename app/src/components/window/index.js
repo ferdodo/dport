@@ -15,7 +15,17 @@ export default {
 
 	mounted() {
 		const dportWindow = window.document.querySelector('dport-window');
+
+		if (!dportWindow){
+			throw new Error("dport-window node not found !");
+		}
+
 		const windowTitleBar = dportWindow.shadowRoot.querySelector('#dport-draggable-handle');
+
+		if (!windowTitleBar){
+			throw new Error("Draggable handle node not found !");
+		}
+
 		WindowHandle.makeDraggable(windowTitleBar);
 	},
 	

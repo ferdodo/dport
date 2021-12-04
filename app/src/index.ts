@@ -1,24 +1,27 @@
-import Vue from "vue/dist/vue.common.js";
+import { createApp } from "vue/dist/vue.cjs.js";
 import Gui from "./components/gui";
 import Window from "./components/window";
 import store from "./store";
 import template from "./template";
-import registerComponents from "./design-system/register-components";
+import { registerComponents, isWebComponent } from "./design-system";
 import { startHotReload, getVersion } from "./lib/version";
-registerComponents();
+
+const componentNames = registerComponents();
 
 getVersion()
 	.then(console.info)
 	.then(startHotReload)
 	.catch(console.error);
 
-new Vue({
-	el: "#app",
+const app = createApp({
 	template,
-	store,
 
 	components: {
 		Gui,
 		Window
 	}
 });
+
+app.use(store);
+app.config.compilerOptions.isCustomElement = isWebComponent;
+app.mount('body');
