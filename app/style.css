@@ -25,6 +25,11 @@ input {
 	width: 100%;
 }
 
+@font-face {
+	font-family: "Press Start 2P";
+	src : url('PressStart2P-Regular.ttf');
+}
+
 p,
 span {
 	user-select: none;

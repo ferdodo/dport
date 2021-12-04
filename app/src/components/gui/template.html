@@ -15,13 +15,13 @@
 		<dport-p> See ssh documentation for more informations. </dport-p>
 	</div>
 
-	<div style="grid-area: 2 / 1 / 3 / 2;"> label </div>
-	<div style="grid-area: 2 / 2 / 3 / 3;"> local_port </div>
-	<div style="grid-area: 2 / 3 / 3 / 4;"> remote_address </div>
-	<div style="grid-area: 2 / 4 / 3 / 5;"> remote_port </div>
-	<div style="grid-area: 2 / 5 / 3 / 6;"> user </div>
-	<div style="grid-area: 2 / 6 / 3 / 7;"> server </div>
-	<div style="grid-area: 2 / 7 / 3 / 8;"> server_ssh_port </div>
+	<dport-p style="grid-area: 2 / 1 / 3 / 2;"> label </dport-p>
+	<dport-p style="grid-area: 2 / 2 / 3 / 3;"> local_port </dport-p>
+	<dport-p style="grid-area: 2 / 3 / 3 / 4;"> remote_address </dport-p>
+	<dport-p style="grid-area: 2 / 4 / 3 / 5;"> remote_port </dport-p>
+	<dport-p style="grid-area: 2 / 5 / 3 / 6;"> user </dport-p>
+	<dport-p style="grid-area: 2 / 6 / 3 / 7;"> server </dport-p>
+	<dport-p style="grid-area: 2 / 7 / 3 / 8;"> server_ssh_port </dport-p>
 
 	<template v-for="(s, i) of config">
 		<dport-input :style="`grid-area: ${3+i}/1/${4+i}/2;`" :disabled="s.isStarted" :value="s.label" @change="update({sshTunnel: s, props: {label: $event.detail}})"/>

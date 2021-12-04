@@ -37,6 +37,9 @@ while [[ $# -gt 0 ]]; do
 				spectre)
 					DESIGN_SYSTEM=spectre
 					;;
+				nes)
+					DESIGN_SYSTEM=nes
+					;;
 				*)
 					echo "Error: unknown design system !"
 					exit -1
