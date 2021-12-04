@@ -1,9 +1,8 @@
 <link rel="stylesheet" href="spectre/spectre.min.css">
 <link rel="stylesheet" href="spectre/spectre-icons.min.css">
 
-<div style="height: calc(100% - 6px); display: flex; flex-direction: column;">
-	<div class="card">
-		<div class="card-body">	
+<div class="card" style="height: 100%; display: flex; flex-direction: column;">
+		<div class="card-header">
 			<div style="display: flex; flex-direction: row;">
 				<div id="handle" style="flex-grow: 1; line-height: 0.9rem;"></div>
 
@@ -18,9 +17,8 @@
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<div style="flex-grow: 1; overflow-y: auto;">
-		<slot></slot>
-	</div>
+		<div class="card-body" style="flex-grow: 1; overflow-y: auto;">
+			<slot></slot>
+		</div>
 </div>
