@@ -1,8 +1,9 @@
-import template from './template';
-const templateNode = document.createElement('template');
-templateNode.innerHTML = template;
+export default class extends HTMLElement {
+	constructor(templateNode){
+		super();
+		this.templateNode = templateNode;
+	}
 
-export default class Win98Window extends HTMLElement {
 	get handle(){
 		return this.shadowRoot.querySelector("#handle");
 	}
@@ -17,16 +18,16 @@ export default class Win98Window extends HTMLElement {
 
 	connectedCallback() {
 		this.attachShadow({ mode: 'open' });
-		this.shadowRoot.appendChild(templateNode.content.cloneNode(true));
+		this.shadowRoot.appendChild(this.templateNode.content.cloneNode(true));
 		const title = this.getAttribute('title');
-		
-		if (title){
+
+		if (title) {
 			this.handle.innerHTML = title;
 		}
 
 		const handleId = this.getAttribute('handle-id');
 
-		if (handleId){
+		if (handleId) {
 			this.handle.id = handleId;
 		}
 
