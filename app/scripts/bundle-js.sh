@@ -83,7 +83,7 @@ for file in `find-files-to-replace __DESIGN_SYSTEM__`; do
 	replace-expression $file __DESIGN_SYSTEM__	"$DESIGN_SYSTEM"
 done
 
-npx --no-install esbuild --bundle src/index.js \
+npx --no-install esbuild --bundle src/index.ts \
 	--target=chrome80 \
 	--external:electron \
 	--outfile=dist/bundle.js
