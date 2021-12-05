@@ -3,12 +3,11 @@ import Button from './__DESIGN_SYSTEM__/button';
 import P from './__DESIGN_SYSTEM__/p';
 import Window from './__DESIGN_SYSTEM__/window';
 
-const componentDefinitions = new Map<string, HTMLElement>();
-
-componentDefinitions.set('dport-input', Input);
-componentDefinitions.set('dport-button', Button);
-componentDefinitions.set('dport-p', P);
-componentDefinitions.set('dport-window', Window);
+const componentDefinitions = new Map()
+	.set('dport-input', Input)
+	.set('dport-button', Button)
+	.set('dport-p', P)
+	.set('dport-window', Window);
 
 export function registerComponents() {
 	for (const [name, element] of componentDefinitions){

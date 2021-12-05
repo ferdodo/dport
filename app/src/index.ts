@@ -6,7 +6,7 @@ import template from "./template";
 import { registerComponents, isWebComponent } from "./design-system";
 import { startHotReload, getVersion } from "./lib/version";
 
-const componentNames = registerComponents();
+registerComponents();
 
 getVersion()
 	.then(console.info)
