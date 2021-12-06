@@ -1,7 +1,7 @@
 <dport-window
 	:title="title"
 	handle-id="dport-draggable-handle"
-	@minimize="minimize"
-	@close="close">
+	@minimize="windowHandle.minimize"
+	@close="windowHandle.close">
 	<slot></slot>
 </dport-window>

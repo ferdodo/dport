@@ -1,6 +1,6 @@
 export interface WindowHandleClass {
 	new(): WindowHandleInstance;
-	makeDraggable(htmlElement): void;
+	makeDraggable(htmlElement: Element): void;
 }
 
 export interface WindowHandleInstance {
