@@ -1,6 +1,6 @@
 export async function getVersion() : Promise<string> {
 	try {
-		const response = await fetch("/version");
+		const response = await fetch("version");
 		return response.text();
 	} catch (error) {
 		await new Promise(r => setTimeout(r, 1000));
