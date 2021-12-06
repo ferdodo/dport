@@ -1,5 +1,5 @@
 from dport-web-base
-COPY app /dport
+COPY src /dport
 WORKDIR /dport
 RUN ./scripts/copy-to-dist.sh
 RUN ./scripts/build-templates.sh
