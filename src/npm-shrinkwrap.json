@@ -10,8 +10,7 @@
 			"license": "MIT",
 			"dependencies": {
 				"@tauri-apps/api": "^1.0.0-beta.5",
-				"vue": "^3.2.23",
-				"vuex": "^4.0.2"
+				"vue": "^3.2.23"
 			},
 			"devDependencies": {
 				"@tauri-apps/cli": "^1.0.0-beta.6",
@@ -923,11 +922,6 @@
 				"@vue/compiler-dom": "3.2.23",
 				"@vue/shared": "3.2.23"
 			}
-		},
-		"node_modules/@vue/devtools-api": {
-			"version": "6.0.0-beta.20.1",
-			"resolved": "https://registry.npmjs.org/@vue/devtools-api/-/devtools-api-6.0.0-beta.20.1.tgz",
-			"integrity": "sha512-R2rfiRY+kZugzWh9ZyITaovx+jpU4vgivAEAiz80kvh3yviiTU3CBuGuyWpSwGz9/C7TkSWVM/FtQRGlZ16n8Q=="
 		},
 		"node_modules/@vue/reactivity": {
 			"version": "3.2.23",
@@ -8508,17 +8502,6 @@
 				"@vue/shared": "3.2.23"
 			}
 		},
-		"node_modules/vuex": {
-			"version": "4.0.2",
-			"resolved": "https://registry.npmjs.org/vuex/-/vuex-4.0.2.tgz",
-			"integrity": "sha512-M6r8uxELjZIK8kTKDGgZTYX/ahzblnzC4isU1tpmEuOIIKmV+TRdc+H4s8ds2NuZ7wpUTdGRzJRtoj+lI+pc0Q==",
-			"dependencies": {
-				"@vue/devtools-api": "^6.0.0-beta.11"
-			},
-			"peerDependencies": {
-				"vue": "^3.0.2"
-			}
-		},
 		"node_modules/wcwidth": {
 			"version": "1.0.1",
 			"resolved": "https://registry.npmjs.org/wcwidth/-/wcwidth-1.0.1.tgz",
@@ -9513,11 +9496,6 @@
 				"@vue/compiler-dom": "3.2.23",
 				"@vue/shared": "3.2.23"
 			}
-		},
-		"@vue/devtools-api": {
-			"version": "6.0.0-beta.20.1",
-			"resolved": "https://registry.npmjs.org/@vue/devtools-api/-/devtools-api-6.0.0-beta.20.1.tgz",
-			"integrity": "sha512-R2rfiRY+kZugzWh9ZyITaovx+jpU4vgivAEAiz80kvh3yviiTU3CBuGuyWpSwGz9/C7TkSWVM/FtQRGlZ16n8Q=="
 		},
 		"@vue/reactivity": {
 			"version": "3.2.23",
@@ -11522,8 +11500,7 @@
 				"spectre.css": "^0.5.9",
 				"tailwindcss": "^2.2.19",
 				"typescript": "^4.4.2",
-				"vue": "^3.2.23",
-				"vuex": "^4.0.2"
+				"vue": "^3.2.23"
 			},
 			"dependencies": {
 				"@babel/code-frame": {
@@ -12213,11 +12190,6 @@
 						"@vue/compiler-dom": "3.2.23",
 						"@vue/shared": "3.2.23"
 					}
-				},
-				"@vue/devtools-api": {
-					"version": "6.0.0-beta.20.1",
-					"resolved": "https://registry.npmjs.org/@vue/devtools-api/-/devtools-api-6.0.0-beta.20.1.tgz",
-					"integrity": "sha512-R2rfiRY+kZugzWh9ZyITaovx+jpU4vgivAEAiz80kvh3yviiTU3CBuGuyWpSwGz9/C7TkSWVM/FtQRGlZ16n8Q=="
 				},
 				"@vue/reactivity": {
 					"version": "3.2.23",
@@ -18070,14 +18042,6 @@
 						"@vue/shared": "3.2.23"
 					}
 				},
-				"vuex": {
-					"version": "4.0.2",
-					"resolved": "https://registry.npmjs.org/vuex/-/vuex-4.0.2.tgz",
-					"integrity": "sha512-M6r8uxELjZIK8kTKDGgZTYX/ahzblnzC4isU1tpmEuOIIKmV+TRdc+H4s8ds2NuZ7wpUTdGRzJRtoj+lI+pc0Q==",
-					"requires": {
-						"@vue/devtools-api": "^6.0.0-beta.11"
-					}
-				},
 				"wcwidth": {
 					"version": "1.0.1",
 					"resolved": "https://registry.npmjs.org/wcwidth/-/wcwidth-1.0.1.tgz",
@@ -22180,14 +22144,6 @@
 				"@vue/runtime-dom": "3.2.23",
 				"@vue/server-renderer": "3.2.23",
 				"@vue/shared": "3.2.23"
-			}
-		},
-		"vuex": {
-			"version": "4.0.2",
-			"resolved": "https://registry.npmjs.org/vuex/-/vuex-4.0.2.tgz",
-			"integrity": "sha512-M6r8uxELjZIK8kTKDGgZTYX/ahzblnzC4isU1tpmEuOIIKmV+TRdc+H4s8ds2NuZ7wpUTdGRzJRtoj+lI+pc0Q==",
-			"requires": {
-				"@vue/devtools-api": "^6.0.0-beta.11"
 			}
 		},
 		"wcwidth": {

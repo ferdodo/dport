@@ -1,8 +1,7 @@
-import { mapActions, mapState } from 'vuex';
 import template from "./template";
+import useConfig from "dport/app/composable/use-config";
 
 export default {
 	template,
-	computed: mapState('sshTunnelConfig', ['config']),
-	methods: mapActions('sshTunnelConfig', ['add', 'remove', 'update', 'start', 'stop'])
+	setup: () => useConfig()
 };

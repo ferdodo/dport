@@ -1,6 +1,6 @@
 import template from "./template";
 import WindowHandle from 'dport/lib/window-handle';
-import { ref, onMounted } from "vue/dist/vue.cjs.js";
+import { onMounted } from "vue/dist/vue.cjs.js";
 
 export default {
 	template,
@@ -10,15 +10,24 @@ export default {
 	},
 
 	setup() {
-		const windowHandle = ref(new WindowHandle());
+		const windowHandle = new WindowHandle();
 
 		onMounted(() => {
 			const titleBar: Element = getTitleBar();
 			WindowHandle.makeDraggable(titleBar);
 		});
 
+		function minimize () {
+			windowHandle.minimize();
+		}
+
+		function close () {
+			windowHandle.close();
+		}
+
 		return {
-			windowHandle
+			minimize,
+			close
 		};
 	}
 }
