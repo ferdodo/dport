@@ -1,7 +1,7 @@
-import template from "./template";
+import { render } from "./template";
 import useConfig from "dport/app/composable/use-config";
 
 export default {
-	template,
+	render,
 	setup: () => useConfig()
 };

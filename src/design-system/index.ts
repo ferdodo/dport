@@ -14,13 +14,3 @@ export function registerComponents() {
 		customElements.define(name, element);
 	}
 }
-
-export function isWebComponent(tagName: string) : boolean {
-	for (const t of componentDefinitions.keys()){
-		if (t === tagName){
-			return true;
-		}
-	}
-
-	return false;
-}

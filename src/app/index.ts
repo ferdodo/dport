@@ -1,8 +1,8 @@
-import { createApp } from "vue/dist/vue.cjs.js";
+import { createApp } from "vue/dist/vue.runtime.esm-bundler.js";
 import Gui from "./components/gui";
 import Window from "./components/window";
-import template from "./template";
-import { registerComponents, isWebComponent } from "dport/design-system";
+import { render } from "./template";
+import { registerComponents } from "dport/design-system";
 import { startHotReload, getVersion } from "dport/lib/version";
 
 registerComponents();
@@ -13,7 +13,7 @@ getVersion()
 	.catch(console.error);
 
 const app = createApp({
-	template,
+	render,
 
 	components: {
 		Gui,
@@ -21,5 +21,4 @@ const app = createApp({
 	}
 });
 
-app.config.compilerOptions.isCustomElement = isWebComponent;
 app.mount('body');

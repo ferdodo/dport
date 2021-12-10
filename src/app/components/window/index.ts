@@ -1,9 +1,9 @@
-import template from "./template";
+import { render } from "./template";
 import WindowHandle from 'dport/lib/window-handle';
-import { onMounted } from "vue/dist/vue.cjs.js";
+import { onMounted } from "vue/dist/vue.runtime.esm-bundler.js";
 
 export default {
-	template,
+	render,
 
 	props: {
 		title: String

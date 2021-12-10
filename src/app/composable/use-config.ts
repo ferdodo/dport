@@ -1,6 +1,6 @@
 import SshTunnelConfig from "dport/lib/ssh-tunnel-config";
 import { default as SshTunnel, State } from "dport/lib/ssh-tunnel";
-import { ref } from "vue/dist/vue.cjs.js";
+import { ref } from "vue/dist/vue.runtime.esm-bundler.js";
 
 export default function useConfig() {
 	let config = ref(SshTunnelConfig.load());
