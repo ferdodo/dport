@@ -1,6 +1,7 @@
 from dport-electron-base
 COPY src /dport
 WORKDIR /dport
+RUN ./scripts/apply-config.sh
 RUN ./scripts/copy-to-dist.sh
 RUN ./scripts/build-templates.sh
 RUN ./scripts/build-vue-templates.sh

@@ -15,8 +15,8 @@
 		"windows": [
 			{
 				"title": "dport",
-				"width": 1000,
-				"height": 300,
+				"width": __DPORT_WINDOW_WIDTH__,
+				"height": __DPORT_WINDOW_HEIGHT__,
 				"resizable": true,
 				"fullscreen": false,
 				"decorations": false

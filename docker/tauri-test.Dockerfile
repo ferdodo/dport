@@ -1,6 +1,7 @@
 from dport-tauri-base
 RUN npm audit --audit-level critical
 COPY src /dport
+RUN ./scripts/apply-config.sh
 RUN ./scripts/copy-to-dist.sh
 RUN ./scripts/build-vue-templates.sh
 RUN ./scripts/build-templates.sh

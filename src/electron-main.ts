@@ -27,8 +27,8 @@ async function initElectron (){
 
 async function createWindow() : Promise<BrowserWindow> {
 	const win = new BrowserWindow({
-		width: 1000,
-		height: 300,
+		width: __DPORT_WINDOW_WIDTH__,
+		height: __DPORT_WINDOW_HEIGHT__,
 		frame: false,
 		webPreferences: {
 			nodeIntegration: true,
