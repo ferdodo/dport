@@ -25,7 +25,6 @@
 		"bundle": {
 			"identifier" : "io.github.ferdodo.dport",
 			"targets": [
-				"appimage",
 				"deb",
 				"msi"
 			]

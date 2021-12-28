@@ -19,10 +19,4 @@ COPY src/npm-shrinkwrap.json /dport
 RUN npm install
 
 COPY src /dport
-RUN ./scripts/apply-config.sh
-RUN ./scripts/copy-to-dist.sh
-RUN ./scripts/build-vue-templates.sh
-RUN ./scripts/build-templates.sh
-RUN ./scripts/bundle-js.sh --bundler tauri --design-system win98
-RUN ./scripts/tauri-setup.sh
-RUN ./scripts/tauri-build.sh
+RUN ./scripts/build.sh --platform linux --bundler tauri --design-system win98

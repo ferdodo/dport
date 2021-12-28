@@ -15,16 +15,14 @@ tauri-test:
 electron-test:
 	docker build -f electron-test.Dockerfile -t dport-electron-test ..
 
-test: electron-test tauri-test
+all: web-base web-build electron-base electron-build tauri-base tauri-build tauri-test electron-test
 
 tauri-build:
 	docker build -f tauri-build.Dockerfile -t dport-tauri-build ..
-	docker run --rm dport-tauri-build cat /dport/dport.AppImage > /tmp/dport.AppImage
 	docker run --rm dport-tauri-build cat /dport/dport.deb > /tmp/dport.deb
 
 electron-build:
 	docker build -f electron-build.Dockerfile -t dport-electron-build ..
-	docker run --rm dport-electron-build cat /dport/dport.AppImage > /tmp/dport.AppImage
 	docker run --rm dport-electron-build cat /dport/dport.deb > /tmp/dport.deb
 
 web-build:

@@ -8,7 +8,6 @@ directories:
 
 linux:
   target:
-    - AppImage
     - deb
   artifactName: "${name}.${ext}"
   category: Utility

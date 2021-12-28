@@ -6,10 +6,4 @@ COPY src/npm-shrinkwrap.json /dport
 RUN npm install
 
 COPY src /dport
-RUN ./scripts/apply-config.sh
-RUN ./scripts/copy-to-dist.sh
-RUN ./scripts/build-vue-templates.sh
-RUN ./scripts/build-templates.sh
-RUN ./scripts/bundle-js.sh --bundler electron --design-system win98
-RUN ./scripts/build-main.sh
-RUN ./scripts/build-electron.sh
+RUN ./scripts/build.sh --platform linux --bundler electron --design-system win98

@@ -10,7 +10,7 @@ function find-files-to-replace {
 }
 
 function replace-expression {
-    echo "Replacing $2 for $1"
+    if [ -n "$VERBOSE" ]; then echo "Replacing $2 for $1"; fi
     sed -i -E "s/$2/$3/g" $1
 }
 

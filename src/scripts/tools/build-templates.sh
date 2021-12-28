@@ -11,9 +11,9 @@ function template-outfile {
 
 function build-template {
 	if needs-build $1 $2; then
-		npx --no-install esbuild --loader:.html=text $1 --outfile=$2
+		npx --no-install esbuild --log-level=$ESBUILD_LOG_LEVEL --loader:.html=text $1 --outfile=$2
 	else
-		echo "Already built $1"
+		if [ -n "$VERBOSE" ]; then echo "Already built $1"; fi
 	fi
 }
 
@@ -23,5 +23,10 @@ function needs-build {
 }
 
 for template in `find-templates`; do
-	build-template $template `template-outfile $template`
+	build-template $template `template-outfile $template` &
+	job_pid=$!
+
+	if [ -n "$VERBOSE" ]; then wait $job_pid; fi
 done
+
+wait < <(jobs -p)
