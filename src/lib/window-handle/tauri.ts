@@ -1,5 +1,5 @@
 import { WindowHandleClass, WindowHandleInstance } from ".";
-import { appWindow } from "./tauri-app-window";
+import { appWindow } from "@tauri-apps/api/window";
 
 const WindowHandle: WindowHandleClass = class implements WindowHandleInstance {
 	minimize() {
