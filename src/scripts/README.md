@@ -14,7 +14,7 @@
 			WSL to support bash and other linux utilities used in the script. Everything
 			else (node_modules, npm scripts) that you would need to setup must be compatible
 			with Windows, therefore, run through native command line, cmd.exe or
-			PowerShell (build.sh uses cmd.exe to run commands from WSL - TODO).
+			PowerShell (build.sh uses cmd.exe to run commands from WSL).
 
 		--bundler
 			tauri, electron, or web. The bundler is the tool used to create executable or
