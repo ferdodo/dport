@@ -19,13 +19,3 @@ mv tmp.json src-tauri/tauri.conf.json
 # grab version from package.json
 jq -s '[.[0], {package: {version: "\(.[1].version)" }}] | .[0] * .[1]' src-tauri/tauri.conf.json package.json > tmp.json
 mv tmp.json src-tauri/tauri.conf.json
-
-# set icon
-case $PLATFORM in
-	linux)
-		npx --no-install tauri icon icon.png > $LOG_OUTPUT
-		;;
-	windows)
-		cmd.exe "npx --no-install tauri icon icon.png"
-		;;
-esac
