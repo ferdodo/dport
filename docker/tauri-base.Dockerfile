@@ -19,4 +19,4 @@ COPY src/npm-shrinkwrap.json /dport
 RUN npm install
 
 COPY src /dport
-RUN ./scripts/build.sh --platform linux --bundler tauri --design-system win98
+RUN ./scripts/build.sh -v --platform linux --bundler tauri --design-system win98
