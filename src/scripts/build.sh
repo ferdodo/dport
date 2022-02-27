@@ -8,7 +8,7 @@ while [[ $# -gt 0 ]]; do
 			shift
 			;;
 
-		--bundler)
+		--bundler | -b)
 			case $2 in
 				tauri | electron | web)
 					BUNDLER=$2
@@ -24,7 +24,7 @@ while [[ $# -gt 0 ]]; do
 			shift
 			;;
 
-		--design-system)
+		--design-system | -d)
 			case $2 in
 				win98 | spectre | nes)
 					DESIGN_SYSTEM=$2
@@ -40,7 +40,7 @@ while [[ $# -gt 0 ]]; do
 			shift
 			;;
 
-		--platform)
+		--platform | -p)
 			case $2 in
 				windows | linux)
 					PLATFORM=$2
