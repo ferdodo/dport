@@ -2,28 +2,42 @@
 set -e
 
 function find-files-to-replace {
-    grep -rl \
-        --exclude-dir=node_modules \
-        --exclude-dir=src-tauri \
-        --exclude=*.sh \
-        $1
+    find -name "*\.dconf\.*"
 }
 
-function replace-expression {
-    if [ -n "$VERBOSE" ]; then echo "Replacing $2 for $1"; fi
-    sed -i -E "s/$2/$3/g" $1
+function build-file {
+	CONFIG_KEYS+=" DPORT_WINDOW_WIDTH"
+	CONFIG_KEYS+=" DPORT_WINDOW_HEIGHT"
+
+	for KEY in $CONFIG_KEYS; do
+		token="__"$KEY"__"
+
+		for file in `find-files-to-replace "$token"`; do
+	        VALUE="${!KEY}"
+	        REPLACE_REGEX+="s/$token/$VALUE/g;"
+	        cat $1 | sed -E "$REPLACE_REGEX" > $2
+	    done
+	done
+}
+
+function outfile {
+	echo "$1" | sed -E "s/\.dconf//g"
+}
+
+CONFIG_DATE=`date +%s -r ./dport.config.env`
+
+function needs-build {
+	test -f $2 || return 0
+	test `date +%s -r $1` -gt "$CONFIG_DATE" || return 0
+	test `date +%s -r $1` -gt `date +%s -r $2`
 }
 
 source ./dport.config.env
 
-CONFIG_KEYS+=" DPORT_WINDOW_WIDTH"
-CONFIG_KEYS+=" DPORT_WINDOW_HEIGHT"
+for file in `find-files-to-replace`; do
+	outfile=`outfile $file`
 
-for KEY in $CONFIG_KEYS; do
-	token="__"$KEY"__"
-
-    for file in `find-files-to-replace "$token"`; do
-        value="${!KEY}"
-        replace-expression $file $token $value
-    done
+	if needs-build $file $outfile; then
+		build-file $file $outfile
+    fi
 done
