@@ -6,5 +6,8 @@
 		"noUnusedParameters": true,
 		"noImplicitAny": false,
 		"moduleResolution": "node"
-	}
+	},
+	"exclude": [
+		"**/*.dconf.ts"
+	]
 }
