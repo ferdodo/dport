@@ -65,20 +65,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download linux-tauri-win98
+      - name: Download linux-electron-win98
         uses: actions/download-artifact@v1
         with:
-          name: linux-tauri-win98
+          name: linux-electron-win98
 
-      - name: Download linux-tauri-spectre
+      - name: Download linux-electron-spectre
         uses: actions/download-artifact@v1
         with:
-          name: linux-tauri-spectre
+          name: linux-electron-spectre
 
-      - name: Download linux-tauri-nes
+      - name: Download linux-electron-nes
         uses: actions/download-artifact@v1
         with:
-          name: linux-tauri-nes
+          name: linux-electron-nes
 
       - name: Create Release
         id: create_release
@@ -91,7 +91,7 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Upload linux-tauri-win98
+      - name: Upload linux-electron-win98
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
