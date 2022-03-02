@@ -85,6 +85,21 @@ jobs:
         with:
           name: linux-electron-nes
 
+      - name: Download linux-tauri-win98
+        uses: actions/download-artifact@v1
+        with:
+          name: linux-tauri-win98
+
+      - name: Download linux-tauri-spectre
+        uses: actions/download-artifact@v1
+        with:
+          name: linux-tauri-spectre
+
+      - name: Download linux-tauri-nes
+        uses: actions/download-artifact@v1
+        with:
+          name: linux-tauri-nes
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -124,4 +139,34 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: linux-electron-nes/dport.deb
           asset_name: dport-electron-nes-${{ github.ref }}.deb
+          asset_content_type: application/octet-stream
+
+      - name: Upload linux-tauri-win98
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: linux-tauri-win98/dport.deb
+          asset_name: dport-tauri-win98-${{ github.ref }}.deb
+          asset_content_type: application/octet-stream
+
+      - name: Upload linux-tauri-spectre
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: linux-tauri-spectre/dport.deb
+          asset_name: dport-tauri-spectre-${{ github.ref }}.deb
+          asset_content_type: application/octet-stream
+
+      - name: Upload linux-tauri-nes
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: linux-tauri-nes/dport.deb
+          asset_name: dport-tauri-nes-${{ github.ref }}.deb
           asset_content_type: application/octet-stream
