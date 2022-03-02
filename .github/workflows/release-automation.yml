@@ -97,26 +97,26 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: linux-tauri-win98/dport.deb
-          asset_name: dport-tauri-win98-${{ github.ref }}.deb
+          asset_path: linux-electron-win98/dport.deb
+          asset_name: dport-electron-win98-${{ github.ref }}.deb
           asset_content_type: application/octet-stream
 
-      - name: Upload linux-tauri-spectre
+      - name: Upload linux-electron-spectre
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: linux-tauri-spectre/dport.deb
-          asset_name: dport-tauri-spectre-${{ github.ref }}.deb
+          asset_path: linux-electron-spectre/dport.deb
+          asset_name: dport-electron-spectre-${{ github.ref }}.deb
           asset_content_type: application/octet-stream
 
-      - name: Upload linux-tauri-nes
+      - name: Upload linux-electron-nes
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: linux-tauri-nes/dport.deb
-          asset_name: dport-tauri-nes-${{ github.ref }}.deb
+          asset_path: linux-electron-nes/dport.deb
+          asset_name: dport-electron-nes-${{ github.ref }}.deb
           asset_content_type: application/octet-stream
