@@ -35,6 +35,9 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
+      - name: update npm
+        run: npm install -g npm@latest
+
       - name: install Rust stable
         if: ${{ matrix.bundler == 'tauri' }}
         uses: actions-rs/toolchain@v1
