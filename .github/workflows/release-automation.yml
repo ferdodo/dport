@@ -6,140 +6,76 @@ on:
       - "v*"
 
 jobs:
-  build-windows-tauri:
+  build:
+    strategy:
+        matrix:
+            node: [14.x]
+            platform: [windows, linux]
+            os: [windows-latest, ubuntu-latest]
+            target: [deb, msi]
+            bundler: [tauri, electron]
+            design-system: [win98, spectre, nes]
+            exclude:
+                - platform: windows
+                  os: ubuntu-latest
+                - platform: linux
+                  os: windows-latest
+                - platform: window
+                  target: deb
+                - platform: linux
+                  target: msi
+                - bundler: tauri
+                - platform: windows
+
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
 
       - uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: ${{ matrix.node }}
 
       - name: install Rust stable
+        if: ${{ matrix.bundler == 'tauri' }}
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
 
       - name: install node_modules
-        working-directory: app
+        working-directory: src
         run: npm install
 
-      - name: setup tauri
-        working-directory: app
-        run: ./scripts/tauri-setup.bat
+      - name: build
+        working-directory: src
+        run: ./scripts/build.sh -v -p ${{ matrix.platform }} -b ${{ matrix.bundler }} -d ${{ matrix.design-system }}
 
-      - name: build app 
-        working-directory: app
-        run: npm run build-tauri
-
-      - name: Upload windows installer.
+      - name: Upload installer.
         uses: actions/upload-artifact@v1
         with:
-          name: windows-tauri-msi
-          path: app/src-tauri/target/release/bundle/msi/dport_${{ github.ref }}_x64.msi
-
-
-  build-windows-electron:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
-
-      - name: install node_modules
-        working-directory: app
-        run: npm install
-
-      - name: build electron main process
-        working-directory: app
-        run: npm run build-electron-main
-
-      - name: build app 
-        working-directory: app
-        run: npm run build-electron
-
-      - name: Upload windows installer.
-        uses: actions/upload-artifact@v1
-        with:
-          name: windows-electron-msi
-          path: app/dist/dport.msi
-
-
-  build-linux-tauri:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-
-      - name: get appimage
-        working-directory: docker
-        run: make tauri_get_appimage
-
-      - name: get deb 
-        working-directory: docker
-        run: make tauri_get_deb
-
-      - name: Upload deb
-        uses: actions/upload-artifact@v1
-        with:
-          name: linux-tauri-deb
-          path: /tmp/dport.deb
-
-      - name: Upload appimage
-        uses: actions/upload-artifact@v1
-        with:
-          name: linux-tauri-appimage
-          path: /tmp/dport.AppImage
-
-  build-linux-electron:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-
-      - name: get appimage
-        working-directory: docker
-        run: make electron_get_appimage
-
-      - name: get deb 
-        working-directory: docker
-        run: make electron_get_deb
-
-      - name: Upload deb
-        uses: actions/upload-artifact@v1
-        with:
-          name: linux-electron-deb
-          path: /tmp/dport.deb
-
-      - name: Upload appimage
-        uses: actions/upload-artifact@v1
-        with:
-          name: linux-electron-appimage
-          path: /tmp/dport.AppImage
+          name: ${{ matrix.platform }}-${{ matrix.bundler }}-${{ matrix.design-system }}
+          path: src/dport.${{ matrix.target }}
 
   do-release:
     needs:
-      - build-linux-tauri
-      - build-windows-electron
-      # - build-windows
+      - build
 
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download deb
+      - name: Download linux-tauri-win98
         uses: actions/download-artifact@v1
         with:
-          name: linux-tauri-deb
+          name: linux-tauri-win98
 
-      - name: Download appimage
+      - name: Download linux-tauri-spectre
         uses: actions/download-artifact@v1
         with:
-          name: linux-tauri-appimage
+          name: linux-tauri-spectre
 
-      - name: Download windows msi installer.
+      - name: Download linux-tauri-nes
         uses: actions/download-artifact@v1
         with:
-          name: windows-electron-msi
+          name: linux-tauri-nes
 
       - name: Create Release
         id: create_release
@@ -152,32 +88,32 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Upload linux deb
+      - name: Upload linux-tauri-win98
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: linux-tauri-deb/dport.deb
-          asset_name: dport-${{ github.ref }}.deb
+          asset_path: linux-tauri-win98/dport.deb
+          asset_name: dport-tauri-win98-${{ github.ref }}.deb
           asset_content_type: application/octet-stream
 
-      - name: Upload linux appimage
+      - name: Upload linux-tauri-spectre
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: linux-tauri-appimage/dport.AppImage
-          asset_name: dport-${{ github.ref }}.AppImage
+          asset_path: linux-tauri-spectre/dport.deb
+          asset_name: dport-tauri-spectre-${{ github.ref }}.deb
           asset_content_type: application/octet-stream
 
-      - name: Upload windows msi
+      - name: Upload linux-tauri-nes
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: windows-electron-msi/dport.msi
-          asset_name: dport-${{ github.ref }}-windows.msi
+          asset_path: linux-tauri-nes/dport.deb
+          asset_name: dport-tauri-nes-${{ github.ref }}.deb
           asset_content_type: application/octet-stream

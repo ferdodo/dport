@@ -9,3 +9,5 @@ case $PLATFORM in
 		cmd.exe /C "npx --no-install electron-builder --publish=never --config electron-builder.yml"
 		;;
 esac
+
+cp electron-dist/dport.deb dport.deb
