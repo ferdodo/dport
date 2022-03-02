@@ -10,4 +10,4 @@ case $PLATFORM in
 		;;
 esac
 
-cp src-tauri/target/debug/bundle/deb/dport_*_amd64.deb /dport/dport.deb
+cp src-tauri/target/debug/bundle/deb/dport_*_amd64.deb dport.deb
