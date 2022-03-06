@@ -2,7 +2,7 @@
 set -e
 
 function find-files-to-replace {
-    find -name "*\.dconf\.*"
+    find -name "*\.dconf*"
 }
 
 function build-file {
