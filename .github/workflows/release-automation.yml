@@ -109,7 +109,7 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           draft: false
-          prerelease: false
+          prerelease: true
 
       - name: Upload linux-electron-win98
         uses: actions/upload-release-asset@v1
