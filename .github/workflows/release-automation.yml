@@ -20,7 +20,7 @@ jobs:
                   os: ubuntu-latest
                 - platform: linux
                   os: windows-latest
-                - platform: window
+                - platform: windows
                   target: deb
                 - platform: linux
                   target: msi
