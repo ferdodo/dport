@@ -1,6 +1,6 @@
 import { render } from "./template";
-import SshTunnelConfig from "dport/lib/ssh-tunnel-config";
-import { default as SshTunnel, State, SshTunnelJson } from "dport/lib/ssh-tunnel";
+import { SshTunnelConfig } from "dport/lib/ssh-tunnel-config";
+import { SshTunnel, State, SshTunnelJson } from "dport/lib/ssh-tunnel";
 import { ref } from "vue/dist/vue.runtime.esm-bundler.js";
 
 export default {

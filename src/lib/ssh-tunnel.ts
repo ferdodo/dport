@@ -16,7 +16,7 @@ export interface SshTunnelJson {
 	state?: State;
 };
 
-export default class SshTunnel {
+export class SshTunnel {
 	#command;
 	json: SshTunnelJson;
 

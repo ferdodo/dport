@@ -1,7 +1,7 @@
-import { default as SshTunnel, State, SshTunnelJson } from "dport/lib/ssh-tunnel";
+import { SshTunnel, State, SshTunnelJson } from "dport/lib/ssh-tunnel";
 import { dbGet, dbSet } from "dport/lib/nosql-db";
 
-export default class SshTunnelConfig {
+export class SshTunnelConfig {
 	#sshTunnels: SshTunnel[];
 
 	constructor(sshTunnels: Iterable<SshTunnel>) {
