@@ -24,7 +24,6 @@ jobs:
                   target: deb
                 - platform: linux
                   target: msi
-                - platform: windows
 
     runs-on: ${{ matrix.os }}
     steps:
