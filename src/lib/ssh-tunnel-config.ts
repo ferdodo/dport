@@ -19,10 +19,8 @@ export class SshTunnelConfig {
 			.map(sshTunnel => sshTunnel.json);
 	}
 
-	* [Symbol.iterator]() {
-		for (const s of this.#sshTunnels){
-			yield s;
-		}
+	[Symbol.iterator] () {
+		return this.#sshTunnels[Symbol.iterator]();
 	}
 
 	add(sshTunnel: SshTunnel) : SshTunnelConfig {
