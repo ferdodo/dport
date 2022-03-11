@@ -23,7 +23,7 @@
 	<dport-p style="grid-area: 2 / 6 / 3 / 7;"> server </dport-p>
 	<dport-p style="grid-area: 2 / 7 / 3 / 8;"> server_ssh_port </dport-p>
 
-	<template v-for="(s, i) of config">
+	<template v-for="(s, i) of getConfig()">
 		<dport-input :style="`grid-area: ${3+i}/1/${4+i}/2;`" :disabled="s.isStarted || null" :value="s.json.label" @change="update(s, {label: $event.detail})"/>
 		<dport-input :style="`grid-area: ${3+i}/2/${4+i}/3;`" :disabled="s.isStarted || null" :value="s.json.externalPort" @change="update(s, {externalPort: $event.detail})"/>
 		<dport-input :style="`grid-area: ${3+i}/3/${4+i}/4;`" :disabled="s.isStarted || null" :value="s.json.internalHost" @change="update(s, {internalHost: $event.detail})"/>
@@ -32,9 +32,9 @@
 		<dport-input :style="`grid-area: ${3+i}/6/${4+i}/7;`" :disabled="s.isStarted || null" :value="s.json.targetHost" @change="update(s, {targetHost: $event.detail})"/>
 		<dport-input :style="`grid-area: ${3+i}/7/${4+i}/8;`" :disabled="s.isStarted || null" :value="s.json.targetSshPort" @change="update(s, {targetSshPort: $event.detail})"/>
 		<dport-button :style="`grid-area: ${3+i}/8/${4+i}/9;`" v-if="s.isStarted" v-on:btn-click="stop(s)">disable</dport-button>
-		<dport-button :style="`grid-area: ${3+i}/8/${4+i}/9;`" v-else :disabled="config.isUnstartable(s) || null" v-on:btn-click="start(s)">enable</dport-button>
+		<dport-button :style="`grid-area: ${3+i}/8/${4+i}/9;`" v-else :disabled="getConfig().isUnstartable(s) || null" v-on:btn-click="start(s)">enable</dport-button>
 		<dport-button :style="`grid-area: ${3+i}/9/${4+i}/10;`" :disabled="s.isStarted || null" v-on:btn-click="remove(s)">remove</dport-button>
 	</template>
 
-	<dport-button :style="`grid-area: ${3+config.size}/9/${4+config.size}/10;`" v-on:click="add">add</dport-button>
+	<dport-button :style="`grid-area: ${3+getConfig().size}/9/${4+getConfig().size}/10;`" v-on:click="add">add</dport-button>
 </div>
