@@ -10,4 +10,12 @@ case $PLATFORM in
 		;;
 esac
 
-cp electron-dist/dport.deb dport.deb
+
+case $PLATFORM in
+	linux)
+		cp electron-dist/dport.deb dport.deb
+		;;
+	windows)
+		cp electron-dist/dport.msi dport.msi
+		;;
+esac
