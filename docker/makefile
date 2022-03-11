@@ -15,6 +15,9 @@ tauri-test:
 electron-test:
 	docker build -f electron-test.Dockerfile -t dport-electron-test ..
 
+web-test:
+	docker build -f web-test.Dockerfile -t dport-web-test ..
+
 all: web-base web-build electron-base electron-build tauri-base tauri-build tauri-test electron-test
 
 tauri-build:
