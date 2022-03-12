@@ -53,8 +53,14 @@ jobs:
         run: npm install
 
       - name: build
+        if: ${{ matrix.platform == 'linux' }}
         working-directory: src
         run: ./scripts/build.sh -v -p ${{ matrix.platform }} -b ${{ matrix.bundler }} -d ${{ matrix.design-system }}
+
+      - name: build (with wsl)
+        if: ${{ matrix.platform == 'windows' }}
+        working-directory: src
+        run: bash ./scripts/build.sh -v -p ${{ matrix.platform }} -b ${{ matrix.bundler }} -d ${{ matrix.design-system }}
 
       - name: Upload installer.
         uses: actions/upload-artifact@v1
