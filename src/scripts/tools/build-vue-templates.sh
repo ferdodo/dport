@@ -11,14 +11,12 @@ function template-outfile {
 
 function build-template {
 	if needs-build $1 $2; then
-		COMMAND="process.stdout.write(require('@vue/compiler-sfc').compileTemplate({source: require('fs').readFileSync('$1').toString(), id: '0', compilerOptions: {isCustomElement: tag => tag.startsWith('dport-') }}).code)"
-
 		case $PLATFORM in
 			linux)
-				echo "$COMMAND"| node > $2
+				npx --no-install vue-compiler-dom-cli --infile $1 --outfile $2 --custom-element-regexp dport- --mode module
 				;;
 			windows)
-				cmd.exe /C "node -e "$COMMAND" > $2"
+				cmd.exe /C "npx --no-install vue-compiler-dom-cli --infile $1 --outfile $2 --custom-element-regexp dport- --mode module"
 				;;
 		esac
 
