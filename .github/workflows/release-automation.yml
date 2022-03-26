@@ -33,6 +33,15 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
+      - if: ${{ matrix.platform == 'windows' }}
+        run: wget https://raw.githubusercontent.com/laurent22/wslpath/master/wslpath
+      - if: ${{ matrix.platform == 'windows' }}
+        run: chmod 755 wslpath
+      - if: ${{ matrix.platform == 'windows' }}
+        run: sudo mv wslpath /usr/bin
+      - if: ${{ matrix.platform == 'windows' }}
+        run: wslpath -h
+
       - name: update npm
         run: npm install -g npm@latest
 
