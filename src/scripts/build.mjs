@@ -125,6 +125,16 @@ async function bundleJs(designSystem, bundler) {
 
 	processOutput.quiet();
 	processOutput.stderr.pipe(process.stderr);
+
+	switch(os.platform()) {
+		case "linux":
+			cp('electron-dist/dport.deb', 'dport.deb');
+			break;
+		case "win32":
+			cp('electron-dist/dport.msi', 'dport.msi');
+			break;
+	}
+
 	await processOutput;
 }
 
@@ -152,6 +162,32 @@ async function lintTypescriptFiles() {
 	await processOutput;
 }
 
+async function buildElectron() {
+	const processOutput = $`npx --no-install electron-builder \
+		--publish=never \
+		--config electron-builder.yml
+	`;
+
+	processOutput.quiet();
+	processOutput.stdout.pipe(process.stdout);
+	processOutput.stderr.pipe(process.stderr);
+	await processOutput;
+}
+
+async function buildElectionMain() {
+	const processOutput = $`npx --no-install esbuild electron-main.ts \
+		--bundle \
+		--platform=node \
+		--external:electron \
+		--outfile=dist/main.js
+	`;
+
+	processOutput.quiet();
+	processOutput.stdout.pipe(process.stdout);
+	processOutput.stderr.pipe(process.stderr);
+	await processOutput;
+}
+
 function createVersion() {
 	echo(`${ new Date().toISOString() }`)
 		.toEnd('dist/version');
@@ -170,3 +206,12 @@ await verifyTypings();
 await lintTypescriptFiles();
 await bundleJs(options.designSystem, options.bundler);
 createVersion();
+
+
+switch(options.bundler) {
+	case "electron":
+		await buildElectionMain();
+		await buildElectron();
+		break;
+
+}
