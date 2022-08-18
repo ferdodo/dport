@@ -3,7 +3,7 @@ import { CommandClass, CommandInstance } from ".";
 
 let idSeed = 0;
 
-const Command: CommandClass = class implements CommandInstance {
+export const CommandElectron: CommandClass = class implements CommandInstance {
 	#id;
 	#ipc;
 
@@ -21,5 +21,3 @@ const Command: CommandClass = class implements CommandInstance {
 		await this.#ipc;
 	}
 }
-
-export default Command;

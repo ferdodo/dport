@@ -1,7 +1,7 @@
 import { ipcRenderer } from "electron";
 import { WindowHandleClass, WindowHandleInstance } from ".";
 
-const WindowHandle: WindowHandleClass = class implements WindowHandleInstance {
+export const WindowHandleElectron: WindowHandleClass = class implements WindowHandleInstance {
 	minimize() {
 		return ipcRenderer.invoke('minimize');
 	}
@@ -14,5 +14,3 @@ const WindowHandle: WindowHandleClass = class implements WindowHandleInstance {
 		htmlElement.style["-webkit-app-region"] = "drag";
 	}
 };
-
-export default WindowHandle;

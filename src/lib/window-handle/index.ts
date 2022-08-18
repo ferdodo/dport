@@ -1,4 +1,6 @@
 import { WindowHandleWeb } from "./web";
+import { WindowHandleElectron } from "./electron";
+import { WindowHandleTauri } from "./tauri";
 
 export interface WindowHandleClass {
 	new(): WindowHandleInstance;
@@ -10,20 +12,20 @@ export interface WindowHandleInstance {
 	close(): void
 }
 
-export let WindowHandle: WindowHandleClass = web;
+export let WindowHandle: WindowHandleClass = WindowHandleWeb;
 
-export async function defineModule(moduleName: "web" | "electron" | "tauri") {
+export async function defineWindowHandleModule(moduleName: "web" | "electron" | "tauri") {
 	switch(moduleName) {
 		case "web":
 			WindowHandle = WindowHandleWeb;
 			break;
 
 		case "electron":
-			WindowHandle = (await import("./electron")).WindowHandleElectron;
+			WindowHandle = WindowHandleElectron;
 			break;
 
 		case "tauri":
-			WindowHandle = (await import("./tauri")).WindowHandleTauri;
+			WindowHandle = WindowHandleTauri;
 			break;
 
 		default:

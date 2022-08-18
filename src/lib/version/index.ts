@@ -15,7 +15,7 @@ export type startHotReloadFn = () => Promise<void>;
 export let startHotReload: startHotReloadFn = startHotReloadWeb;
 
 export async function defineStartHotReloadModule(moduleName: "web" | "electron" | "tauri") {
-	if (moduleName !== web) {
-		startHotReload = () => {};
+	if (moduleName !== "web") {
+		startHotReload = () => Promise.resolve(undefined);
 	}
 }

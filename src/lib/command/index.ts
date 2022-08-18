@@ -1,4 +1,6 @@
 import { CommandWeb } from "./web";
+import { CommandElectron } from "./electron";
+import { CommandTauri } from "./tauri";
 
 export interface CommandClass {
 	new(command: string, args: string[]): CommandInstance;
@@ -17,10 +19,10 @@ export async function defineCommandModule(moduleName: "web" | "electron" | "taur
 			Command = CommandWeb;
 			break;
 		case "electron":
-			Command = (await import("./electron")).CommandElectron;
+			Command = CommandElectron;
 			break;
 		case "tauri":
-			Command = (await import("./tauri")).CommandTauri;
+			Command = CommandTauri;
 			break;
 		default:
 			throw new Error("Unknown module name !");

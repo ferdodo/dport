@@ -5,6 +5,8 @@ import { render } from "./template";
 import { registerComponents } from "dport/design-system";
 import { startHotReload, getVersion } from "dport/lib/version";
 import "dport/lib/config/constants";
+import { defineCommandModule } from "dport/lib/command";
+import { defineWindowHandleModule } from "dport/lib/window-handle";
 
 getVersion()
 	.then(console.info)
@@ -21,7 +23,7 @@ const app = createApp({
 });
 
 registerComponents(DPORT_DESIGN_SYSTEM)
-	.then(function() {
-		app.mount('body');
-	})
+	.then(() => defineCommandModule(DPORT_BUNDLER))
+	.then(() => defineWindowHandleModule(DPORT_BUNDLER))
+	.then(() => app.mount('body'))
 	.catch(console.error);

@@ -5,6 +5,7 @@
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"noImplicitAny": false,
-		"moduleResolution": "node"
+		"moduleResolution": "node",
+		"noEmit": true
 	}
 }

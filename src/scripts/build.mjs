@@ -3,8 +3,46 @@
 import shell from "shelljs";
 import assert from "assert/strict";
 import { config } from "dotenv";
+import { hideBin } from 'yargs/helpers';
+import yargs from "yargs";
 
 const { find, cp, mkdir, echo } = shell;
+
+
+function getOptions(){
+	const args = hideBin(process.argv);
+
+	return yargs(args)
+		.usage("$0", "Compile vue templates to render functions.")
+		.options({
+			bundler: {
+				type: "string",
+				choices: ["web", "electron", "tauri"],
+				requiresArg: true,
+				description: `
+					The bundler is the tool used to create
+					executable or installer files (deb, msi).
+					web is a phony bundler that starts a web
+					server used for development.
+				`
+			},
+			'design-system': {
+				type: "string",
+				choices: ["win98", "nes", "spectre"],
+				requiresArg: true,
+				description: `
+					Changes the user interface appearance. win98
+					is a Windows 98 look-alike. Spectre is a
+					lightweight css-only framework. And nes is a
+					framework designed to feel like a retro video
+					games.
+				`
+			}
+		})
+		.parse();
+}
+
+
 
 function copyToDist() {
 	mkdir('-p', 'dist');
@@ -72,12 +110,13 @@ async function buildTemplates() {
 	}
 }
 
-async function bundleJs() {
+async function bundleJs(designSystem, bundler) {
 	const processOutput = $`
 		npx --no-install esbuild --bundle app/index.ts \
 			--define:DPORT_WINDOW_WIDTH=${ process.env.DPORT_WINDOW_WIDTH } \
 			--define:DPORT_WINDOW_HEIGHT=${ process.env.DPORT_WINDOW_HEIGHT } \
-			--define:DPORT_DESIGN_SYSTEM=${ process.env.DPORT_DESIGN_SYSTEM } \
+			--define:DPORT_DESIGN_SYSTEM=${ designSystem } \
+			--define:DPORT_BUNDLER=${ bundler } \
 			--target=chrome80 \
 			--external:electron \
 			--outfile=dist/bundle.js \
@@ -85,6 +124,14 @@ async function bundleJs() {
 	`;
 
 	processOutput.quiet();
+	processOutput.stderr.pipe(process.stderr);
+	await processOutput;
+}
+
+async function verifyTypings() {
+	const processOutput = $`npx --no-install tsc`;
+	processOutput.quiet();
+	processOutput.stdout.pipe(process.stdout);
 	processOutput.stderr.pipe(process.stderr);
 	await processOutput;
 }
@@ -112,13 +159,14 @@ function createVersion() {
 
 config({ path: 'dport.config.env' });
 
+const options = await getOptions();
 assert(process.env.DPORT_WINDOW_WIDTH);
 assert(process.env.DPORT_WINDOW_HEIGHT);
-assert(process.env.DPORT_DESIGN_SYSTEM);
 
 copyToDist();
 await buildVueTemplates();
 await buildTemplates();
+await verifyTypings();
 await lintTypescriptFiles();
-await bundleJs();
-//createVersion();
+await bundleJs(options.designSystem, options.bundler);
+createVersion();

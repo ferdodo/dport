@@ -1,7 +1,7 @@
 import { WindowHandleClass, WindowHandleInstance } from ".";
 import { appWindow } from "@tauri-apps/api/window";
 
-const WindowHandle: WindowHandleClass = class implements WindowHandleInstance {
+export const WindowHandleTauri: WindowHandleClass = class implements WindowHandleInstance {
 	minimize() {
 		appWindow
 			.minimize()
@@ -22,5 +22,3 @@ const WindowHandle: WindowHandleClass = class implements WindowHandleInstance {
 		});
 	}
 };
-
-export default WindowHandle;
