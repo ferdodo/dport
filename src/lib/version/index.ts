@@ -1,3 +1,5 @@
+import { startHotReloadWeb } from "./web";
+
 export async function getVersion() : Promise<string> {
 	try {
 		const response = await fetch("version");
@@ -9,4 +11,11 @@ export async function getVersion() : Promise<string> {
 }
 
 export type startHotReloadFn = () => Promise<void>;
-export { startHotReload } from "./__BUNDLER__";
+
+export let startHotReload: startHotReloadFn = startHotReloadWeb;
+
+export async function defineStartHotReloadModule(moduleName: "web" | "electron" | "tauri") {
+	if (moduleName !== web) {
+		startHotReload = () => {};
+	}
+}

@@ -1,16 +1,6 @@
-import Input from './__DESIGN_SYSTEM__/input';
-import Button from './__DESIGN_SYSTEM__/button';
-import P from './__DESIGN_SYSTEM__/p';
-import Window from './__DESIGN_SYSTEM__/window';
-
-const componentDefinitions = new Map()
-	.set('dport-input', Input)
-	.set('dport-button', Button)
-	.set('dport-p', P)
-	.set('dport-window', Window);
-
-export function registerComponents() {
-	for (const [name, element] of componentDefinitions){
-		customElements.define(name, element);
-	}
+export async function registerComponents(designSystem: "win98" | "spectre" | "nes") {
+	customElements.define('dport-input',	(await import(`./${ designSystem }/input`)).default);
+	customElements.define('dport-button',	(await import(`./${ designSystem }/button`)).default);
+	customElements.define('dport-p',		(await import(`./${ designSystem }/p`)).default);
+	customElements.define('dport-window',	(await import(`./${ designSystem }/window`)).default);
 }

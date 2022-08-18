@@ -7,8 +7,8 @@ export default {
 	render,
 
 	setup() {
-		let config: SshTunnelConfig = SshTunnelConfig.load();
-		let getConfig = ref(() => config);
+		const config: SshTunnelConfig = SshTunnelConfig.load();
+		const getConfig = ref(() => config);
 
 		function add () {
 			const config: SshTunnelConfig = getConfig.value();

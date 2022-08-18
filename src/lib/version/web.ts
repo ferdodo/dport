@@ -1,6 +1,6 @@
 import { startHotReloadFn, getVersion } from ".";
 
-export const startHotReload: startHotReloadFn = async function (){
+export const startHotReloadWeb: startHotReloadFn = async function (){
 	const initialVersion = await getVersion();
 
 	while (true){

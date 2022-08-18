@@ -1,5 +1,5 @@
 import { render } from "./template";
-import WindowHandle from 'dport/lib/window-handle';
+import { WindowHandle } from 'dport/lib/window-handle';
 import { onMounted } from "vue/dist/vue.runtime.esm-bundler.js";
 
 export default {

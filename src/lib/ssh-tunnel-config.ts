@@ -44,7 +44,8 @@ export class SshTunnelConfig {
 
 		const defaultConf = [
 			new SshTunnel(),
-			new SshTunnel().set({ externalPort: 8081 })
+			new SshTunnel()
+				.set({ externalPort: 8081 })
 		];
 
 		const sshTunnels = json

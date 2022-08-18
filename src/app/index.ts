@@ -4,8 +4,7 @@ import Window from "./components/window";
 import { render } from "./template";
 import { registerComponents } from "dport/design-system";
 import { startHotReload, getVersion } from "dport/lib/version";
-
-registerComponents();
+import "dport/lib/config/constants";
 
 getVersion()
 	.then(console.info)
@@ -21,4 +20,8 @@ const app = createApp({
 	}
 });
 
-app.mount('body');
+registerComponents(DPORT_DESIGN_SYSTEM)
+	.then(function() {
+		app.mount('body');
+	})
+	.catch(console.error);

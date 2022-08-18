@@ -1,13 +1,15 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import { commandIpc, commandKillIpc } from 'dport/lib/command/electron-ipc';
 import { createMinimizeIpcDef, createCloseIpcDef } from 'dport/lib/window-handle/electron-ipc';
+import "dport/lib/config/constants";
 
 export type electronIpcDefinition = {
 	name: string;
 	handler: (...any) => void | Promise<void>;
 };
 
-initElectron();
+initElectron()
+	.catch(console.error);
 
 async function initElectron (){
 	try {
@@ -27,8 +29,8 @@ async function initElectron (){
 
 async function createWindow() : Promise<BrowserWindow> {
 	const win = new BrowserWindow({
-		width: __DPORT_WINDOW_WIDTH__,
-		height: __DPORT_WINDOW_HEIGHT__,
+		width: DPORT_WINDOW_WIDTH,
+		height: DPORT_WINDOW_HEIGHT,
 		frame: false,
 		webPreferences: {
 			nodeIntegration: true,

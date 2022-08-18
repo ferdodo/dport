@@ -3,16 +3,22 @@ import { appWindow } from "@tauri-apps/api/window";
 
 const WindowHandle: WindowHandleClass = class implements WindowHandleInstance {
 	minimize() {
-		appWindow.minimize();
+		appWindow
+			.minimize()
+			.catch(console.error);
 	}
 
 	close() {
-		appWindow.close();
+		appWindow
+			.close()
+			.catch(console.error);
 	}
 
 	static makeDraggable(htmlElement) {
 		htmlElement.addEventListener('mousedown', () => {
-			appWindow.startDragging();
+			appWindow
+				.startDragging()
+				.catch(console.error);
 		});
 	}
 };

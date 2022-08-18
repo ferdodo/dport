@@ -22,10 +22,14 @@ for file in `find-files-to-replace __DESIGN_SYSTEM__`; do
 	replace-expression $file __DESIGN_SYSTEM__	"$DESIGN_SYSTEM"
 done
 
+source ./dport.config.env
+
 case $PLATFORM in
 	linux)
 		npx --no-install esbuild --bundle app/index.ts \
 			--log-level=$ESBUILD_LOG_LEVEL \
+			--define:\"$DPORT_WINDOW_WIDTH\" \
+			--define:\"$DPORT_WINDOW_HEIGHT\" \
 			--target=chrome80 \
 			--external:electron \
 			--outfile=dist/bundle.js \

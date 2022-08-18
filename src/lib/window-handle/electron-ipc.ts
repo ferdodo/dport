@@ -8,7 +8,7 @@ export function createMinimizeIpcDef(win: BrowserWindow) : electronIpcDefinition
 			win.minimize();
 		}
 	}
-};
+}
 
 export function createCloseIpcDef(win: BrowserWindow) : electronIpcDefinition {
 	return {
@@ -17,4 +17,4 @@ export function createCloseIpcDef(win: BrowserWindow) : electronIpcDefinition {
 			win.close();
 		}
 	}
-};
+}

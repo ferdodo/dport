@@ -1,9 +1,9 @@
-import Command from 'dport/lib/command';
+import { Command } from 'dport/lib/command';
 
 export enum State {
 	Started,
 	Stopped
-};
+}
 
 export interface SshTunnelJson {
 	label?: string;
@@ -14,7 +14,7 @@ export interface SshTunnelJson {
 	targetSshPort?: string;
 	user?: string;
 	state?: State;
-};
+}
 
 export class SshTunnel {
 	#command;

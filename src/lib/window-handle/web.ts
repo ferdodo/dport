@@ -1,6 +1,6 @@
 import { WindowHandleClass, WindowHandleInstance } from ".";
 
-const WindowHandle: WindowHandleClass = class implements WindowHandleInstance {
+export const WindowHandleWeb: WindowHandleClass = class implements WindowHandleInstance {
 	minimize() {
 	}
 
@@ -10,5 +10,3 @@ const WindowHandle: WindowHandleClass = class implements WindowHandleInstance {
 	static makeDraggable(){
 	}
 };
-
-export default WindowHandle;

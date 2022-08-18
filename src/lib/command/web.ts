@@ -1,6 +1,6 @@
 import { CommandClass, CommandInstance } from ".";
 
-const Command: CommandClass = class implements CommandInstance {
+export const CommandWeb: CommandClass = class implements CommandInstance {
 	async kill() {
 		await Promise.resolve();
 	}
@@ -9,5 +9,3 @@ const Command: CommandClass = class implements CommandInstance {
 		await new Promise(r => setTimeout(r, 1000000000));
 	}
 }
-
-export default Command;

@@ -96,7 +96,6 @@ export BUNDLER
 export DESIGN_SYSTEM
 export PLATFORM
 
-./scripts/tools/apply-config.sh
 ./scripts/tools/copy-to-dist.sh
 ./scripts/tools/build-vue-templates.sh
 ./scripts/tools/build-templates.sh
