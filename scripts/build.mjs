@@ -13,7 +13,7 @@ function getOptions(){
 	const args = hideBin(process.argv);
 
 	return yargs(args)
-		.usage("$0", "Compile vue templates to render functions.")
+		.usage("$0", "Dport build")
 		.options({
 			bundler: {
 				type: "string",
