@@ -11,7 +11,7 @@
 	"author": "Thomas Riffard <example@example.org>",
 	"license": "MIT",
 	"devDependencies": {
-		"@tauri-apps/cli": "^1.0.0-rc.4",
+		"@tauri-apps/cli": "^1.0.5",
 		"@typescript-eslint/eslint-plugin": "^5.33.1",
 		"@typescript-eslint/eslint-plugin-tslint": "^5.33.1",
 		"@typescript-eslint/parser": "^5.33.1",
@@ -32,7 +32,7 @@
 		"zx": "^7.0.8"
 	},
 	"dependencies": {
-		"@tauri-apps/api": "^1.0.0-rc.1",
+		"@tauri-apps/api": "^1.0.2",
 		"vue": "^3.2.23"
 	}
 }

@@ -5,7 +5,7 @@ export const CommandTauri: CommandClass = class implements CommandInstance {
 	#process;
 	#waitChild;
 
-	constructor(command, args){
+	constructor(command, args) {
 		this.#process = new Command(command, args);
 		this.#waitChild = this.#process.spawn();
 	}

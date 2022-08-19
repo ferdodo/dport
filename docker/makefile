@@ -9,16 +9,10 @@ electron-base:
 web-base:
 	docker build -f web-base.Dockerfile -t dport-web-base ..
 
-tauri-test:
-	docker build -f tauri-test.Dockerfile -t dport-tauri-test ..
-
 electron-test:
 	docker build -f electron-test.Dockerfile -t dport-electron-test ..
 
-web-test:
-	docker build -f web-test.Dockerfile -t dport-web-test ..
-
-all: web-base web-build electron-base electron-build tauri-base tauri-build tauri-test electron-test
+all: web-base web-build electron-base electron-build tauri-base tauri-build
 
 tauri-build:
 	docker build -f tauri-build.Dockerfile -t dport-tauri-build ..

@@ -6,6 +6,7 @@
 		"noUnusedParameters": true,
 		"noImplicitAny": false,
 		"moduleResolution": "node",
-		"noEmit": true
+		"noEmit": true,
+		"module": "es2020"
 	}
 }
