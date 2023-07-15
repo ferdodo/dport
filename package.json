@@ -18,7 +18,7 @@
 		"98.css": "^0.1.17",
 		"dotenv": "^16.0.1",
 		"dport": "file:.",
-		"electron": "^16.0.4",
+		"electron": "^18.3.7",
 		"electron-builder": "^22.14.5",
 		"esbuild": "^0.12.22",
 		"eslint": "^8.22.0",
