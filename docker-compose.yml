@@ -1,0 +1,23 @@
+services:
+  core:
+    build:
+      context: core
+      tags:
+        - "dport-core"
+
+  app:
+    build:
+      context: app
+      tags:
+        - "dport-app"
+
+  web:
+    build: web
+    ports:
+      - "3355:5173"
+
+  electron:
+    build:
+      context: electron
+      tags:
+        - "dport-electron"

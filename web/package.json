@@ -1,0 +1,12 @@
+{
+	"scripts": {
+		"start": "vite --host"
+	},
+	"devDependencies": {
+		"app": "file:../app",
+		"vite": "^5.1.5"
+	},
+	"dependencies": {
+		"cookies-ds": "^1.4.1"
+	}
+}

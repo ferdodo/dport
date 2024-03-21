@@ -1,0 +1,21 @@
+{
+	"$schema": "./node_modules/@stryker-mutator/core/schema/stryker-schema.json",
+	"testRunner": "vitest",
+	"ignorePatterns": ["dist"],
+	"coverageAnalysis": "perTest",
+	"mutator": {
+		"excludedMutations": [
+			"ArithmeticOperator",
+			"EqualityOperator",
+			"LogicalOperator",
+			"ConditionalExpression",
+			"ObjectLiteral",
+			"StringLiteral"
+		]
+	},
+	"thresholds": {
+		"high": 9,
+		"low": 0,
+		"break": 90
+	}
+}

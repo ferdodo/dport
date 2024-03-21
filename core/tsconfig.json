@@ -1,0 +1,16 @@
+{
+	"compilerOptions": {
+		"strict": true,
+		"target": "esnext",
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitAny": true,
+		"moduleResolution": "node",
+		"declaration": true,
+		"module": "commonjs",
+		"outDir": "dist",
+		"rootDir": "src",
+		"noEmit": true,
+		"skipLibCheck": true
+	}
+}

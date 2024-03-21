@@ -1,0 +1,17 @@
+{
+	"name": "dport-electron",
+	"version": "1.0.0",
+	"author": "Thomas Riffard <example@example.org>",
+	"homepage": "example.org",
+	"scripts": {
+		"build": "esbuild --bundle main.ts --external:electron --outfile=bundle.js --sourcemap && electron-builder --publish=never --config electron-builder.yml"
+	},
+	"devDependencies": {
+		"app": "file:../app",
+		"core": "file:../core",
+		"cookies-ds": "^1.4.1",
+		"electron": "^29.1.1",
+		"electron-builder": "^24.13.3",
+		"esbuild": "^0.20.2"
+	}
+}

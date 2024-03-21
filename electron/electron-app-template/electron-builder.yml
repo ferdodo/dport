@@ -1,0 +1,17 @@
+extraResources:
+  - index.html
+  - bundle.js
+
+directories:
+  output: electron-dist
+
+linux:
+  target:
+    - deb
+  artifactName: "${name}.${ext}"
+  category: Utility
+
+win:
+  target:
+    - msi
+  artifactName: "${name}.${ext}"
