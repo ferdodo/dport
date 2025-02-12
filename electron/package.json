@@ -12,6 +12,6 @@
 		"cookies-ds": "^1.4.1",
 		"electron": "^29.1.1",
 		"electron-builder": "^24.13.3",
-		"esbuild": "^0.20.2"
+		"esbuild": "^0.25.0"
 	}
 }
